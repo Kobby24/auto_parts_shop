@@ -1,4 +1,4 @@
-﻿# This is an auto-generated Django model module.
+# This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
@@ -9,7 +9,6 @@ from django.db import models
 
 
 class AuthGroup(models.Model):
-    name_id = models.AutoField(unique=True,primary_key=True)
     name = models.CharField(unique=True, max_length=150)
 
     class Meta:
@@ -18,8 +17,8 @@ class AuthGroup(models.Model):
 
 
 class AuthGroupPermissions(models.Model):
-    group = models.ForeignKey(AuthGroup,  on_delete=models.CASCADE)
-    permission = models.ForeignKey('AuthPermission', on_delete=models.CASCADE)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -28,7 +27,7 @@ class AuthGroupPermissions(models.Model):
 
 
 class AuthPermission(models.Model):
-    content_type = models.ForeignKey('DjangoContentType',on_delete=models.CASCADE)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
     codename = models.CharField(max_length=100)
     name = models.CharField(max_length=255)
 
@@ -49,6 +48,9 @@ class AuthUser(models.Model):
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
     first_name = models.CharField(max_length=150)
+    phone = models.TextField(blank=True, null=True)
+    country = models.TextField(blank=True, null=True)
+    city = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -56,8 +58,8 @@ class AuthUser(models.Model):
 
 
 class AuthUserGroups(models.Model):
-    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
-    group = models.ForeignKey(AuthGroup, on_delete=models.CASCADE)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -66,8 +68,8 @@ class AuthUserGroups(models.Model):
 
 
 class AuthUserUserPermissions(models.Model):
-    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
-    permission = models.ForeignKey(AuthPermission, on_delete=models.CASCADE)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -89,8 +91,8 @@ class DjangoAdminLog(models.Model):
     object_repr = models.CharField(max_length=200)
     action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
-    content_type = models.ForeignKey('DjangoContentType',  blank=True, null=True,on_delete=models.CASCADE)
-    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     action_time = models.DateTimeField()
 
     class Meta:
@@ -131,6 +133,7 @@ class DjangoSession(models.Model):
 class Model(models.Model):
     model_id = models.AutoField(primary_key=True)
     model = models.TextField()
+    brand = models.ForeignKey(Brands, models.DO_NOTHING, db_column='brand', blank=True, null=True)
 
     class Meta:
         managed = False
@@ -143,34 +146,19 @@ class Part(models.Model):
     pic_url = models.TextField()
     price = models.IntegerField()
     year = models.TextField()
-    model = models.ForeignKey(Model,  db_column='model',on_delete=models.CASCADE)
+    model = models.ForeignKey(Model, models.DO_NOTHING, db_column='model')
 
     class Meta:
         managed = False
         db_table = 'part'
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    fname = models.TextField()
-    lname = models.TextField()
-    email = models.TextField(unique=True)
-    address = models.TextField(blank=True, null=True)
-    phone = models.TextField(unique=True)
-    country = models.TextField()
-    city = models.TextField()
-
-    class Meta:
-        managed = False
-        db_table = 'user'
 
 
 class PaymentHistory(models.Model):
     payment_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User,  db_column='user',on_delete=models.CASCADE)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='user')
     payment_date = models.TextField()
     parts_purchased = models.TextField()
 
     class Meta:
         managed = False
         db_table = 'payment_history'
-
-
