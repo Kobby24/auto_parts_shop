@@ -48,9 +48,9 @@ class AuthUser(models.Model):
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
     first_name = models.CharField(max_length=150)
-    phone = models.TextField(blank=True, null=True)
-    country = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
     city = models.TextField(blank=True, null=True)
+    phone = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -155,9 +155,9 @@ class Part(models.Model):
 
 class PaymentHistory(models.Model):
     payment_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='user')
     payment_date = models.TextField()
     parts_purchased = models.TextField()
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='user')
 
     class Meta:
         managed = False
