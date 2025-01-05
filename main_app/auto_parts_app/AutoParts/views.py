@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import PBKDF2PasswordHasher
 from .models import Model,AuthUser
 from django.contrib.auth import authenticate
-from . import utils
+from .utils import password_h,time_now,MyBackend
 
 
 
@@ -10,7 +9,7 @@ from . import utils
 
 # Create your views here.
 
-salt = "345"
+
 def home(request):
 
     return render(request, 'home.html')
@@ -20,22 +19,19 @@ def login(request):
     if request.method == "POST":
         email_ = request.POST.get('email')
         password = request.POST.get('password')
-        user = authenticate(email=email_,password=password)
-
-        if user is not None:
+        password = password_h(password)
+        user_ = MyBackend()
+        user_.authenticate(password=password,email=email_,request=request)
+        if user_:
             return home(request)
         else:
-            print("hmmm")
-            print(user)
-
-
-
+            return signup(request)
     return render(request, "login_form.html")
 
 
 def signup(request):
     if request.method == "POST":
-        time_now = utils.time_now()
+
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
         username = request.POST.get('username')
@@ -45,20 +41,20 @@ def signup(request):
         country = request.POST.get('country')
         city = request.POST.get('city')
         password = request.POST.get('password')
-        hasher = PBKDF2PasswordHasher()
-        password_ = hasher.encode(password=password,salt=salt)
+        password = password_h(password)
+
 
         get_in = AuthUser(
             is_superuser=False,
             is_staff = False,
             username=username,
-            password=password_,
+            password=password,
             email=email_,
             last_name=lname,
             first_name=fname,
             last_login=time_now,
             is_active=True,
-            date_joined=time_now,
+            date_joined=time_now(),
             address=address,
             city=city,
             phone=phone)
@@ -69,3 +65,8 @@ def signup(request):
 
 def main_shop(request):
     return render(request,'main.html')
+
+user = AuthUser.objects.get(email="kobbygilbert233@gmail.com")
+print(user.password)
+
+
