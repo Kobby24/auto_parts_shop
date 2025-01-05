@@ -43,7 +43,7 @@ class AuthUser(models.Model):
     is_superuser = models.BooleanField()
     username = models.CharField(unique=True, max_length=150)
     last_name = models.CharField(max_length=150)
-    email = models.CharField(max_length=254)
+    email = models.CharField(unique=True, max_length=254)
     is_staff = models.BooleanField()
     is_active = models.BooleanField()
     date_joined = models.DateTimeField()
