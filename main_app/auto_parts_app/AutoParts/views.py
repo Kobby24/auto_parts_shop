@@ -22,6 +22,7 @@ def login(request):
         password = password_h(password)
         user_ = MyBackend()
         user_.authenticate(password=password,email=email_,request=request)
+        print(user_)
         if user_:
             return home(request)
         else:
