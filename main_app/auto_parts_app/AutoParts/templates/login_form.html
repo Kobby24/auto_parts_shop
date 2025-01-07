@@ -26,7 +26,7 @@
           </div>
             {% if hid == True %}
             <div class="form-floating">
-                <a href="{% url 'signup' %}" style="color:red"><small>Sorry no account found Sign Up</small></a>
+                <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>
             </div>
             {% endif %}
           <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>

@@ -13,12 +13,12 @@ class MyBackend(BaseBackend):
         try:
             user = AuthUser.objects.get(email=email)
         except:
-            return False
+            return [False]
         else:
             if user.password == password:
-                return True
+                return [True,True]
             else:
-                return False
+                return [True,False]
 
 
 
@@ -31,6 +31,8 @@ def password_h(pwd):
     hasher = PBKDF2PasswordHasher()
     salt='345'
     return hasher.encode(password=pwd,salt=salt)
+def get_city(region):
+    pass
 
 
 

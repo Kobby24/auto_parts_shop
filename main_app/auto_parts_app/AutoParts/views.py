@@ -16,19 +16,28 @@ def home(request):
 
 
 def login(request):
+    message = ''
     hid = False
     if request.method == "POST":
+        re_url = ''
         email_ = request.POST.get('email')
         password = request.POST.get('password')
         password = password_h(password)
         user_ = MyBackend()
         is_verified= user_.authenticate(password=password,email=email_,request=request)
 
-        if is_verified:
-            return home(request)
+        if is_verified[0]:
+            if is_verified[1]:
+                return home(request)
+            else:
+                hid = True
+                message = "Wrong password rest it"
+                return render(request, "login_form.html", {'hid': hid, 'message': message})
+
         else:
             hid = True
-            return render(request,"login_form.html",{'hid':hid})
+            message = 'Sorry no account found Sign Up'
+            return render(request,"login_form.html",{'hid':hid,'message':message})
     return render(request, "login_form.html",{'hid':hid})
 
 
@@ -41,7 +50,6 @@ def signup(request):
         email_ = request.POST.get('email')
         address = request.POST.get('address')
         phone = request.POST.get('phone')
-        country = request.POST.get('country')
         city = request.POST.get('city')
         password = request.POST.get('password')
         password = password_h(password)
@@ -70,7 +78,7 @@ def signup(request):
 def main_shop(request):
     return render(request,'main.html')
 
-user = AuthUser.objects.get(email="kobbygilbert233@gmail.com")
-print(user.password)
+def reset_password(request):
+    return render(request,'reset_password.html')
 
 
