@@ -16,18 +16,20 @@ def home(request):
 
 
 def login(request):
+    hid = False
     if request.method == "POST":
         email_ = request.POST.get('email')
         password = request.POST.get('password')
         password = password_h(password)
         user_ = MyBackend()
         is_verified= user_.authenticate(password=password,email=email_,request=request)
-        print(is_verified)
+
         if is_verified:
             return home(request)
         else:
-            return signup(request)
-    return render(request, "login_form.html")
+            hid = True
+            return render(request,"login_form.html",{'hid':hid})
+    return render(request, "login_form.html",{'hid':hid})
 
 
 def signup(request):
@@ -60,9 +62,10 @@ def signup(request):
             city=city,
             phone=phone)
         get_in.save()
-        home(request)
+        return home(request)
+    else:
 
-    return render(request, 'signup_form.html')
+        return render(request, 'signup_form.html')
 
 def main_shop(request):
     return render(request,'main.html')

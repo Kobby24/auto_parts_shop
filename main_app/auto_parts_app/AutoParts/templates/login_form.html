@@ -24,6 +24,11 @@
             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
             <label for="floatingPassword">Password</label>
           </div>
+            {% if hid == True %}
+            <div class="form-floating">
+                <a href="{% url 'signup' %}" style="color:red"><small>Sorry no account found Sign Up</small></a>
+            </div>
+            {% endif %}
           <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
           <p class="mt-5 mb-3 text-body-secondary">© 2024</p>
         </form>
