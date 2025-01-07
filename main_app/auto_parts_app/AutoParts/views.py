@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Model, CustomUser
 from django.contrib.auth import authenticate
-from .utils import password_h, time_now, MyBackend
+from .utils import password_h, time_now, MyBackend,regions
 
 
 # Create your views here.
@@ -67,8 +67,10 @@ def signup(request):
         get_in.save()
         return home(request)
     else:
+        region_list = regions()
 
-        return render(request, 'signup_form.html')
+
+        return render(request, 'signup_form.html',{"regions":region_list})
 
 
 def main_shop(request):

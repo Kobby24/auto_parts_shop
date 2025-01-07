@@ -2,7 +2,7 @@ from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
-from .models import Model, CustomUser
+from .models import Model, CustomUser,Region,City
 
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main_app/auto_parts_app/auto_parts_app/settings.py')  # Update 'main_app.settings' to match your settings module path
@@ -32,7 +32,18 @@ def password_h(pwd):
     salt='345'
     return hasher.encode(password=pwd,salt=salt)
 def get_city(region):
-    pass
+    selected_region = Region.object.get(region=region)
+    region_id = selected_region.region_id
+    return City.object.all(region_id=region_id)
+
+def regions():
+    region_name=[]
+    regions = Region.objects.all()
+    for region in regions:
+        region_name.append(region.region)
+    return region_name
+
+
 
 
 

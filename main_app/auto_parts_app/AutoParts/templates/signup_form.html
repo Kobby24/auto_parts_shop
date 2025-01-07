@@ -76,8 +76,18 @@
                     <input type="text" class="form-control" name="phone" id="address2" placeholder="+233 XXX XXX XXX">
                   </div>
 
-      
                   <div class="col-md-4">
+                                <label for="state" class="form-label">Region</label>
+                                <select class="form-select" id="region" required="" name="region">
+                                  {% for region in regions %}
+                                  <option>{{ region }}</option>
+                                  {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                  Please provide a valid state.
+                                </div>
+                              </div>
+                  <div class="col-md-4" id="city">
                     <label for="state" class="form-label">City</label>
                     <select class="form-select" id="state" required="" name="city">
                       <option value="">Choose...</option>
@@ -87,6 +97,7 @@
                       Please provide a valid state.
                     </div>
                   </div>
+
       
                   
                 </div>
@@ -118,6 +129,6 @@
       </div>
       </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+      <script src="../static/signup-script.js"></script>
 </body>
 </html>
