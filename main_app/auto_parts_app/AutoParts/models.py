@@ -37,6 +37,13 @@ class AuthPermission(models.Model):
         unique_together = (('content_type', 'codename'),)
 
 
+class Region(models.Model):
+    region_id = models.AutoField(primary_key=True)
+    region = models.TextField(unique=True)
+
+    class Meta:
+        managed = False
+        db_table = 'region'
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
@@ -49,7 +56,7 @@ class AuthUser(models.Model):
     date_joined = models.DateTimeField()
     first_name = models.CharField(max_length=150)
     address = models.TextField(blank=True, null=True)
-    city = models.TextField(blank=True, null=True)
+    city = models.ForeignKey('City',models.DO_NOTHING)
     phone = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -84,6 +91,16 @@ class Brands(models.Model):
     class Meta:
         managed = False
         db_table = 'brands'
+
+
+class City(models.Model):
+    city_id = models.AutoField(primary_key=True)
+    region = models.ForeignKey(Region, models.DO_NOTHING, db_column='region')
+    city = models.TextField()
+
+    class Meta:
+        managed = False
+        db_table = 'city'
 
 
 class DjangoAdminLog(models.Model):
@@ -162,3 +179,6 @@ class PaymentHistory(models.Model):
     class Meta:
         managed = False
         db_table = 'payment_history'
+
+
+
