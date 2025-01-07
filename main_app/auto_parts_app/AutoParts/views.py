@@ -21,9 +21,9 @@ def login(request):
         password = request.POST.get('password')
         password = password_h(password)
         user_ = MyBackend()
-        user_.authenticate(password=password,email=email_,request=request)
-        print(user_)
-        if user_:
+        is_verified= user_.authenticate(password=password,email=email_,request=request)
+        print(is_verified)
+        if is_verified:
             return home(request)
         else:
             return signup(request)
@@ -31,7 +31,7 @@ def login(request):
 
 
 def signup(request):
-    if request.method == "POST":
+    if request.method == "POST" and request.POST:
 
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')

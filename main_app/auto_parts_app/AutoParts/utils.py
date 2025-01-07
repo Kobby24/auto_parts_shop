@@ -15,12 +15,11 @@ class MyBackend(BaseBackend):
         except:
             return False
         else:
-            print(user.password)
-            print(password)
             if user.password == password:
                 return True
             else:
                 return False
+
 
 
 
