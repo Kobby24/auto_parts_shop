@@ -1,17 +1,13 @@
 from django.shortcuts import render, redirect
-from .models import Model,AuthUser
+from .models import Model, CustomUser
 from django.contrib.auth import authenticate
-from .utils import password_h,time_now,MyBackend
-
-
-
+from .utils import password_h, time_now, MyBackend
 
 
 # Create your views here.
 
 
 def home(request):
-
     return render(request, 'home.html')
 
 
@@ -24,7 +20,7 @@ def login(request):
         password = request.POST.get('password')
         password = password_h(password)
         user_ = MyBackend()
-        is_verified= user_.authenticate(password=password,email=email_,request=request)
+        is_verified = user_.authenticate(password=password, email=email_, request=request)
 
         if is_verified[0]:
             if is_verified[1]:
@@ -37,8 +33,8 @@ def login(request):
         else:
             hid = True
             message = 'Sorry no account found Sign Up'
-            return render(request,"login_form.html",{'hid':hid,'message':message})
-    return render(request, "login_form.html",{'hid':hid})
+            return render(request, "login_form.html", {'hid': hid, 'message': message})
+    return render(request, "login_form.html", {'hid': hid})
 
 
 def signup(request):
@@ -54,10 +50,9 @@ def signup(request):
         password = request.POST.get('password')
         password = password_h(password)
 
-
-        get_in = AuthUser(
+        get_in = CustomUser(
             is_superuser=False,
-            is_staff = False,
+            is_staff=False,
             username=username,
             password=password,
             email=email_,
@@ -75,10 +70,10 @@ def signup(request):
 
         return render(request, 'signup_form.html')
 
+
 def main_shop(request):
-    return render(request,'main.html')
+    return render(request, 'main.html')
+
 
 def reset_password(request):
-    return render(request,'reset_password.html')
-
-
+    return render(request, 'reset_password.html')

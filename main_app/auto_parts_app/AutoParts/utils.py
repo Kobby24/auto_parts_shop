@@ -2,7 +2,7 @@ from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
-from .models import Model, AuthUser
+from .models import Model, CustomUser
 
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main_app/auto_parts_app/auto_parts_app/settings.py')  # Update 'main_app.settings' to match your settings module path
@@ -11,7 +11,7 @@ django.setup()
 class MyBackend(BaseBackend):
     def authenticate(self, request, email=None,password=None):
         try:
-            user = AuthUser.objects.get(email=email)
+            user = CustomUser.objects.get(email=email)
         except:
             return [False]
         else:
