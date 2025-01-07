@@ -80,7 +80,7 @@
                                 <label for="state" class="form-label">Region</label>
                                 <select class="form-select" id="region" required="" name="region">
                                   {% for region in regions %}
-                                  <option>{{ region }}</option>
+                                  <option value="{{ region.id }}">{{ region.region }}</option>
                                   {% endfor %}
                                 </select>
                                 <div class="invalid-feedback">

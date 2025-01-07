@@ -32,16 +32,25 @@ def password_h(pwd):
     salt='345'
     return hasher.encode(password=pwd,salt=salt)
 def get_city(region):
+    city_list = []
     selected_region = Region.object.get(region=region)
     region_id = selected_region.region_id
-    return City.object.all(region_id=region_id)
+    cities = City.object.all(region_id=region_id)
+    for city in cities:
+        city_list.append(city.city)
+    return city_list
 
 def regions():
-    region_name=[]
+    region_data=[]
     regions = Region.objects.all()
     for region in regions:
-        region_name.append(region.region)
-    return region_name
+        dic = {
+            'id' :region.region_id,
+            'region':region.region,
+            'cities': get_city(region.region)
+        }
+        region_data.append(dic)
+    return region_data
 
 
 
