@@ -69,7 +69,6 @@ def signup(request):
     else:
         region_list = regions()
 
-
         return render(request, 'signup_form.html',{"regions":region_list})
 
 

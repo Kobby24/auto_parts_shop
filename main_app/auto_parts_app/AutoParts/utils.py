@@ -33,9 +33,9 @@ def password_h(pwd):
     return hasher.encode(password=pwd,salt=salt)
 def get_city(region):
     city_list = []
-    selected_region = Region.object.get(region=region)
+    selected_region = Region.objects.get(region=region)
     region_id = selected_region.region_id
-    cities = City.object.all(region_id=region_id)
+    cities = City.objects.all().filter(region=region_id)
     for city in cities:
         city_list.append(city.city)
     return city_list
