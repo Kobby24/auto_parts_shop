@@ -34,12 +34,9 @@
                 {% endfor %}
               </select></div>
               <div class="col">
-                <select class="form-select search" aria-label="Default select example">
-                  <option selected>Model</option>
-                  <option value="1">Benz</option>
-                  <option value="2">Toyota</option>
-                  <option value="3">Honda</option>
-                  <option value="3">Hyundai</option>
+                <select class="form-select search" id="model" aria-label="Default select example">
+                  <option disabled selected>Model</option>
+
                 </select>
               </div>
               <div class="col">
@@ -87,5 +84,9 @@
         </footer>
       </div>
 </body>
+<script>
+    const brandsData = {{ brands|safe }};
+</script>
+<script src="../static/head.js?v=1.1"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </html>
