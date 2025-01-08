@@ -50,7 +50,7 @@ class Region(models.Model):
 class CustomUser(AbstractUser):
     address = models.TextField(blank=True, null=True)
     region = models.TextField()
-    city = models.ForeignKey('City', models.DO_NOTHING)
+    city = models.ForeignKey('City', models.DO_NOTHING, null=True)
     phone = models.TextField(blank=True, null=True)
 
     class Meta:
