@@ -58,6 +58,7 @@ def get_model(brand):
     models = Model.objects.all().filter(brand=brand_id)
     for model in models:
         model_data.append(model.model)
+
     return model_data
 
 
@@ -65,12 +66,14 @@ def get_model(brand):
 def brands():
     brand_data = []
     brands = Brands.objects.all()
+
     for brand in brands:
         dic = {
             'id':brand.brand_id,
             'brand':brand.brand,
             'models':get_model(brand.brand)
         }
+        brand_data.append(dic)
     return brand_data
 
 
