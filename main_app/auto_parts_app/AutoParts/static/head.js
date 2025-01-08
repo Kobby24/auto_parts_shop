@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-        const regionSelect = document.getElementById('brand');
-        const citySelect = document.getElementById('model');
+        const brandSelect = document.getElementById('brand');
+        const modelSelect = document.getElementById('model');
 
-        // Event listener for region selection
-        regionSelect.addEventListener('change', () => {
-            const selectedRegion = regionSelect.value;
+        // Event listener for brand selection
+        brandSelect.addEventListener('change', () => {
+            const selectedBrand = brandSelect.value;
 
-            // Find the selected region's cities
-            const region = regionsData.find(r => r.region === selectedRegion);
-            const cities = region ? region.cities : [];
+            // Find the selected brand's models
+            const brand = brandsData.find(r => r.brand === selectedBrand);
+            const models = brand ? brand.models : [];
 
-            // Clear existing options in the city dropdown
-            citySelect.innerHTML = '<option value="" disabled selected>Select a model</option>';
+            // Clear existing options in the model dropdown
+            modelSelect.innerHTML = '<option value="" disabled selected>Select a model</option>';
 
-            // Populate the city dropdown with the corresponding cities
-            cities.forEach(city => {
+            // Populate the model dropdown with the corresponding models
+            models.forEach(model => {
                 const option = document.createElement('option');
-                option.value = city;
-                option.textContent = city;
-                citySelect.appendChild(option);
+                option.value = model;
+                option.textContent = model;
+                modelSelect.appendChild(option);
             });
         });
     });
