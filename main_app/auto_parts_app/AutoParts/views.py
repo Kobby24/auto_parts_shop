@@ -11,7 +11,6 @@ from .utils import password_h, time_now, MyBackend,regions,brands
 
 def home(request):
     brand_list = brands()
-    pprint.pprint(brand_list)
     return render(request, 'home.html',{'brands':brand_list})
 
 
