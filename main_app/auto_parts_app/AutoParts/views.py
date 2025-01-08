@@ -1,9 +1,6 @@
-import pprint
-
-from django.shortcuts import render, redirect
-from .models import Model, CustomUser
-from django.contrib.auth import authenticate
-from .utils import password_h, time_now, MyBackend,regions,brands
+from django.shortcuts import render
+from .models import CustomUser
+from .utils import password_h, time_now, MyBackend, regions, brands
 
 
 # Create your views here.
@@ -11,11 +8,10 @@ from .utils import password_h, time_now, MyBackend,regions,brands
 
 def home(request):
     brand_list = brands()
-    return render(request, 'home.html',{'brands':brand_list})
+    return render(request, 'home.html', {'brands': brand_list})
 
 
 def login(request):
-
     hid = False
     if request.method == "POST":
 
@@ -72,12 +68,12 @@ def signup(request):
     else:
         region_list = regions()
 
-        return render(request, 'signup_form.html',{"regions":region_list})
+        return render(request, 'signup_form.html', {"regions": region_list})
 
 
 def main_shop(request):
     brand_list = brands()
-    return render(request, 'main.html',{'brands':brand_list})
+    return render(request, 'main.html', {'brands': brand_list})
 
 
 def reset_password(request):
