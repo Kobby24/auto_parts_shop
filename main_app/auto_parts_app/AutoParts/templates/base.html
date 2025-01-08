@@ -27,12 +27,11 @@
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
               <div class="row">
                 <div class="col">
-              <select class="form-select search" aria-label="Default select example">
-                <option selected>Brand</option>
-                <option value="1">Benz</option>
-                <option value="2">Toyota</option>
-                <option value="3">Honda</option>
-                <option value="3">Hyundai</option>
+              <select class="form-select search" id="brand" aria-label="Default select example">
+                <option disabled selected>Brand</option>
+                  {% for brand in brands %}
+                <option value="{{ brand.brand }}">{{ brand.brand }}</option>
+                {% endfor %}
               </select></div>
               <div class="col">
                 <select class="form-select search" aria-label="Default select example">

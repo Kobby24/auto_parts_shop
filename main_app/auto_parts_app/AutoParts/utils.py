@@ -2,7 +2,7 @@ from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
-from .models import Model, CustomUser,Region,City
+from .models import Model, CustomUser,Region,City,Brands
 
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'main_app/auto_parts_app/auto_parts_app/settings.py')  # Update 'main_app.settings' to match your settings module path
@@ -51,6 +51,27 @@ def regions():
         }
         region_data.append(dic)
     return region_data
+def get_model(brand):
+    model_data =[]
+    brand_selected = Brands.objects.get(brand=brand)
+    brand_id = brand_selected.brand_id
+    models = Model.objects.all().filter(brand=brand_id)
+    for model in models:
+        model_data.append(model.model)
+    return model_data
+
+
+
+def brands():
+    brand_data = []
+    brands = Brands.objects.all()
+    for brand in brands:
+        dic = {
+            'id':brand.brand_id,
+            'brand':brand.brand,
+            'models':get_model(brand.brand)
+        }
+    return brand_data
 
 
 
