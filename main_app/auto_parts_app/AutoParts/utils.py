@@ -7,7 +7,8 @@ from .models import Model, CustomUser, Region, City, Brands
 import os
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                      'main_app/auto_parts_app/auto_parts_app/settings.py')  # Update 'main_app.settings' to match your settings module path
+                      'main_app/auto_parts_app/auto_parts_app/settings.py')  # Update 'main_app.settings' to match
+# your settings module path
 django.setup()
 
 
@@ -46,8 +47,8 @@ def get_city(region):
 
 def regions():
     region_data = []
-    regions = Region.objects.all()
-    for region in regions:
+    regions_ = Region.objects.all()
+    for region in regions_:
         dic = {
             'id': region.region_id,
             'region': region.region,
@@ -70,9 +71,9 @@ def get_model(brand):
 
 def brands():
     brand_data = []
-    brands = Brands.objects.all()
+    brands_ = Brands.objects.all()
 
-    for brand in brands:
+    for brand in brands_:
         dic = {
             'id': brand.brand_id,
             'brand': brand.brand,
