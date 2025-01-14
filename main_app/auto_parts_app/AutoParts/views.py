@@ -12,7 +12,7 @@ def home(request, user=''):
     try:
         user = CustomUser.objects.get(username=user)
         if user.is_active == 1:
-            return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_in': True})
+            return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_out': True})
 
 
 
