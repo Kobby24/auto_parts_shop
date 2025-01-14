@@ -42,6 +42,7 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
     // Add item to cart display
     const listItem = document.createElement('li');
     listItem.textContent = `${productName} - $${productPrice.toFixed(2)}`;
+    listItem.classList.add('nav-item');
     cartItems.appendChild(listItem);
 
     // Update total

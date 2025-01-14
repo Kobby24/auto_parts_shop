@@ -79,5 +79,6 @@ def main_shop(request):
 def reset_password(request):
     return render(request, 'reset_password.html')
 
+
 def buy(request):
-    return render(request,'payment.html')
+    return render(request, 'payment.html')
