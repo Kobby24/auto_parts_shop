@@ -46,8 +46,8 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
 
     // Update total
     totalAmount += productPrice;
-    totalNum += 1
+    totalNum += parseInt(1)
     cartTotal.textContent = totalAmount.toFixed(2);
-    cartNum.textContent = totalNum.toFixed(2);
+    cartNum.textContent = totalNum.toString();
   });
 });
