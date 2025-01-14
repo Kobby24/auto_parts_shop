@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-      <span id="cart-icon">🛒<span id="cart-count">(0)</span></span>
+      <a type="button" href="{% url 'buy' %}" style="text-decoration: none; color:white;"><span id="cart-icon">🛒<span id="cart-count">(0)</span></span></a>
 {% endblock %}
 {% block content %}
     <main>
@@ -30,7 +30,7 @@
                     <p class="card-text">Mercedes Benz C220/C250/C300 Back Boot</p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-primary">Add to cart</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary add-to-cart">Add to cart</button>
                       </div>
                       <small class="">GH₵5,500.00</small>
                     </div>
