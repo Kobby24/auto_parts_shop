@@ -8,7 +8,8 @@ from .utils import password_h, time_now, MyBackend, regions, brands,get_years
 
 def home(request):
     brand_list = brands()
-    return render(request, 'home.html', {'brands': brand_list})
+    years = get_years()
+    return render(request, 'home.html', {'brands': brand_list,'years':years})
 
 
 def login(request):
@@ -71,10 +72,11 @@ def signup(request):
         return render(request, 'signup_form.html', {"regions": region_list})
 
 
-def main_shop(request):
+def main_shop(request,brand):
+
     brand_list = brands()
     years = get_years()
-    return render(request, 'main.html', {'brands': brand_list,'years':years})
+    return render(request, 'main.html', {'brands': brand_list,'years':years,'brand':brand})
 
 
 def reset_password(request):

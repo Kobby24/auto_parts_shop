@@ -9,21 +9,21 @@
             <img src="../static/home_pic/benzboot.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption">
               <h1 >We have Back Boots,Fenders and Doors.</h1>
-              <p><a class="btn btn-lg btn-primary" style="background-color: #003161;" href="{% url 'main_shop' %}">See More</a></p>
+              <p><a class="btn btn-lg btn-primary" style="background-color: #003161;" href="{% url 'main_shop' brand='Metalic' %}">See More</a></p>
             </div>
           </div>
           <div class="carousel-item" data-bs-interval="1000">
             <img src="../static/home_pic/405_06603651-b517-4a66-9deb-29de051c164f.jpg" class="d-block w-100" alt="...">
             <div class="carousel-caption">
               <h1 >Front and Back Bumpers</h1>
-              <p><a class="btn btn-lg btn-primary" style="background-color: #003161;" href="{% url 'main_shop' %}">Shop For Yours</a></p>
+              <p><a class="btn btn-lg btn-primary" style="background-color: #003161;" href="{% url 'main_shop' brand='Bumper' %}">Shop For Yours</a></p>
             </div>
           </div>
           <div class="carousel-item" data-bs-interval="1000">
             <img src="../static/home_pic/Photo-1-top-headlights.jpeg" class="d-block w-100" alt="...">
             <div class="carousel-caption" style="align-items: center;">
               <h1>Headlight,Taillights and Foglights</h1>
-              <p><a class="btn btn-lg btn-primary" style="background-color: #003161;" href="{% url 'main_shop' %}">Shop Now</a></p>
+              <p><a class="btn btn-lg btn-primary" style="background-color: #003161;" href="{% url 'main_shop' brand='Light' %}">Shop Now</a></p>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@
         <h2 class="pb-2 border-bottom">Car Brands with Parts in Stock</h2>
 
         <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
-          <div class="col">                  <a href="{% url 'main_shop' %}" style="text-decoration: none;" >
+          <div class="col">                  <a href="{% url 'main_shop' brand='Benz' %}" style="text-decoration: none;" >
 
             <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('../static/home_pic/Webp.net-resizeimage.jpg'); background-repeat: no-repeat; background-size: cover;">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
@@ -58,7 +58,7 @@
            </div> </a>
           </div>
 
-          <div class="col"><a href="{% url 'main_shop' %}" style="text-decoration: none;">
+          <div class="col"><a href="{% url 'main_shop' brand='Toyota' %}" style="text-decoration: none;">
             <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('../static/home_pic/toyota.jpg'); background-repeat: no-repeat; background-size: cover;">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Toyota Parts for Smooth Drives</h3>
@@ -76,7 +76,7 @@
             </div></a>
           </div>
 
-          <div class="col"><a href="{% url 'main_shop' %}" style="text-decoration: none;">
+          <div class="col"><a href="{% url 'main_shop' brand='Honda' %}" style="text-decoration: none;">
             <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('../static/home_pic/honda_pic.jpg'); background-repeat: no-repeat; background-size: cover;">
               <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
                 <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Keep Your Honda Running Strong.</h3>
