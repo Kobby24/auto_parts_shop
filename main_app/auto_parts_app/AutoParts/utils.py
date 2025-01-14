@@ -20,6 +20,7 @@ class MyBackend(BaseBackend):
             return [False]
         else:
             if user.password == password:
+                user.last_login = time_now()
                 return [True, True]
             else:
                 return [True, False]
@@ -85,3 +86,7 @@ def brands():
 
 def get_years(start=1998, end=2025):
     return [year for year in range(start, end + 1)]
+
+def get_city_id(city):
+    cities = City.objects.get(city=city)
+    return cities

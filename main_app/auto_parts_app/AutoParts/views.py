@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands,get_years
+from .utils import password_h, time_now, MyBackend, regions, brands,get_years,get_city_id
 
 
 # Create your views here.
@@ -49,6 +49,7 @@ def signup(request):
         city = request.POST.get('city')
         password = request.POST.get('password')
         password = password_h(password)
+        get_city = get_city_id(city)
 
         get_in = CustomUser(
             is_superuser=False,
@@ -58,11 +59,11 @@ def signup(request):
             email=email_,
             last_name=lname,
             first_name=fname,
-            last_login=time_now,
+            last_login=time_now(),
             is_active=True,
             date_joined=time_now(),
             address=address,
-            city=city,
+            city=get_city,
             phone=phone)
         get_in.save()
         return home(request)
