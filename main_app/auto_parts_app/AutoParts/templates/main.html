@@ -18,7 +18,7 @@
           <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
               <div class="col">
-                <div class="card shadow-sm">
+                <div class="card shadow-sm" data-product-id="1" data-price="20">
                     <img 
                     src="asserts/img/benzboot.jpg"
                     alt="Thumbnail" 
@@ -30,7 +30,7 @@
                     <p class="card-text">Mercedes Benz C220/C250/C300 Back Boot</p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-primary">Add to cart</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary add-to-cart-btn">Add to cart</button>
                       </div>
                       <small class="">GH₵5,500.00</small>
                     </div>
@@ -39,6 +39,11 @@
               </div>
             </div>
           </div>
+        </div>
+        <div id="cart">
+          <h2>Shopping Cart</h2>
+          <ul id="cart-items"></ul>
+          <p>Total: $<span id="cart-total">0</span></p>
         </div>
 
       </main>
