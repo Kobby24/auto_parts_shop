@@ -14,29 +14,66 @@
 <body>
     <div class="form-container">
     <main class="form-signin w-100 m-auto">
-        <form class="sign-in-form" method="POST" action="{% url 'login' %}">
-            {% csrf_token %}
-          <img class="mb-4" src="../static/logo/apple-touch-icon.png" alt="" width="72" height="57">
-          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-      
-          <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
-            <label for="floatingInput">Email address</label>
-          </div>
-          <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
-            <label for="floatingPassword">Password</label>
-          </div>
-            {% if hid == True %}
+<!--        <form class="sign-in-form needs-validation" method="POST" action="{% url 'login' %}" novalidate>-->
+<!--            {% csrf_token %}-->
+<!--          <img class="mb-4" src="../static/logo/apple-touch-icon.png" alt="" width="72" height="57">-->
+<!--          <h1 class="h3 mb-3 fw-normal">Please sign in</h1>-->
+<!--      -->
+<!--          <div class="form-floating">-->
+<!--            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>-->
+<!--            <label for="floatingInput">Email address</label>-->
+<!--          </div>-->
+<!--          <div class="form-floating">-->
+<!--            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>-->
+<!--            <label for="floatingPassword">Password</label>-->
+<!--          </div>-->
+<!--            {% if hid == True %}-->
+<!--            <div class="form-floating">-->
+<!--                <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>-->
+<!--            </div>-->
+<!--            {% endif %}-->
+<!--          <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>-->
+<!--          <p class="mt-5 mb-3 text-body-secondary">© 2024</p>-->
+<!--        </form>-->
+        <form class="sign-in-form needs-validation" method="POST" action="{% url 'login' %}" novalidate>
+  {% csrf_token %}
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
+    <label for="floatingInput">Email address</label>
+    <div class="invalid-feedback">
+      Please enter your email.
+    </div>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" required>
+    <label for="floatingPassword">Password</label>
+    <div class="invalid-feedback">
+      Please enter your password.
+    </div>
+  </div>
+             {% if hid == True %}
             <div class="form-floating">
-                <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>
+                 <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>
             </div>
             {% endif %}
-          <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-          <p class="mt-5 mb-3 text-body-secondary">© 2024</p>
-        </form>
+
+  <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+</form>
+
       </main></div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+ <script>   document.addEventListener('DOMContentLoaded', function () {
+  const form = document.querySelector('.sign-in-form');
 
+  form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  }, false);
+});
+</script>
 </body>
 </html>

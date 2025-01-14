@@ -23,13 +23,12 @@ def home(request, user=''):
 def login(request):
     hid = False
     if request.method == "POST":
-
         email_ = request.POST.get('email')
         password = request.POST.get('password')
         password = password_h(password)
         user_ = MyBackend()
         is_verified = user_.authenticate(password=password, email=email_, request=request)
-
+        print(is_verified)
         if is_verified[0]:
             if is_verified[1]:
                 return home(request, (CustomUser.objects.get(email=email_)).username)
@@ -57,8 +56,6 @@ def signup(request):
         city = request.POST.get('city')
         password = request.POST.get('password')
         password = password_h(password)
-
-
         try:
             get_city = get_city_id(city)
             get_in = CustomUser(
