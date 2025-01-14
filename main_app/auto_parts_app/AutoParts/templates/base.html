@@ -36,7 +36,13 @@
                 </select>
               </div>
               <div class="col">
-                <input type="text" class="form-control" placeholder="year" aria-label="year">
+
+                  <select class="form-select search" id="year" aria-label="Default select example">
+                <option disabled selected>Year</option>
+                  {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+              </select>
               </div>
             </div>
             </form>

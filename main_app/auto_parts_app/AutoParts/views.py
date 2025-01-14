@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands
+from .utils import password_h, time_now, MyBackend, regions, brands,get_years
 
 
 # Create your views here.
@@ -73,7 +73,8 @@ def signup(request):
 
 def main_shop(request):
     brand_list = brands()
-    return render(request, 'main.html', {'brands': brand_list})
+    years = get_years()
+    return render(request, 'main.html', {'brands': brand_list,'years':years})
 
 
 def reset_password(request):

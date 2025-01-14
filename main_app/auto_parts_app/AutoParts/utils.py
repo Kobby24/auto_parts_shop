@@ -81,3 +81,7 @@ def brands():
         }
         brand_data.append(dic)
     return brand_data
+
+
+def get_years(start=1998, end=2025):
+    return [year for year in range(start, end + 1)]
