@@ -29,7 +29,7 @@
                 <div class="row g-3">
                   <div class="col-sm-6">
                     <label for="firstName" class="form-label">First name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required="" name="fname">
+                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required="required" name="fname">
                     <div class="invalid-feedback">
                       Valid first name is required.
                     </div>
@@ -37,28 +37,28 @@
       
                   <div class="col-sm-6">
                     <label for="lastName" class="form-label">Last name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required="" name="lname">
+                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required="required" name="lname">
                     <div class="invalid-feedback">
                       Valid last name is required.
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <label for="username" class="form-label">Username</label>
-                    <input type="text" class="form-control" id="username" placeholder="" value="" required="" name="username">
+                    <input type="text" class="form-control" id="username" placeholder="" value="" required="required" name="username">
                     <div class="invalid-feedback">
                       Valid last name is required.
                     </div>
                   </div>
                   <div class="col-12">
                     <label for="email" class="form-label">Password </label>
-                    <input type="password" class="form-control" id="password"  name="password">
+                    <input type="password" class="form-control" id="password"  name="password" required="required">
                     <div class="invalid-feedback">
                       Please enter a valid email address for shipping updates.
                     </div>
                   </div>
                   <div class="col-12">
                     <label for="email" class="form-label">Email </label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email">
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email" required="required">
                     <div class="invalid-feedback">
                       Please enter a valid email address for shipping updates.
                     </div>
@@ -66,7 +66,7 @@
       
                   <div class="col-12">
                     <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="" name="address">
+                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="required" name="address">
                     <div class="invalid-feedback">
                       Please enter your shipping address.
                     </div>
@@ -74,12 +74,12 @@
       
                   <div class="col-12">
                     <label for="address2" class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" name="phone" id="address2" placeholder="+233 XXX XXX XXX">
+                    <input type="text" class="form-control" name="phone" id="address2" placeholder="+233 XXX XXX XXX" required="required">
                   </div>
 
 <div class="col-md-4">
     <label for="region" class="form-label">Region</label>
-    <select class="form-select" id="region" required name="region">
+    <select class="form-select" id="region" required="required" name="region">
         <option value="" disabled selected>Select a region</option>
         {% for region in regions %}
         <option value="{{ region.region }}">{{ region.region }}</option>
@@ -91,7 +91,7 @@
 </div>
  <div class="col-md-4">
     <label for="city" class="form-label">City</label>
-    <select class="form-select" id="city" required name="city">
+    <select class="form-select" id="city" required="required" name="city">
     </select>
     <div class="invalid-feedback">
         Please provide a valid city.

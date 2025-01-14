@@ -1,15 +1,23 @@
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands,get_years,get_city_id
+from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id
 
 
 # Create your views here.
 
 
-def home(request):
+def home(request, user=''):
     brand_list = brands()
     years = get_years()
-    return render(request, 'home.html', {'brands': brand_list,'years':years})
+    try:
+        user = CustomUser.objects.get(username=user)
+        if user.is_active == 1:
+            return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_in': True})
+
+
+
+    except:
+        return render(request, 'home.html', {'brands': brand_list, 'years': years})
 
 
 def login(request):
@@ -24,7 +32,7 @@ def login(request):
 
         if is_verified[0]:
             if is_verified[1]:
-                return home(request)
+                return home(request, (CustomUser.objects.get(email=email_)).username)
             else:
                 hid = True
                 message = "Wrong password rest it"
@@ -49,35 +57,39 @@ def signup(request):
         city = request.POST.get('city')
         password = request.POST.get('password')
         password = password_h(password)
-        get_city = get_city_id(city)
 
-        get_in = CustomUser(
-            is_superuser=False,
-            is_staff=False,
-            username=username,
-            password=password,
-            email=email_,
-            last_name=lname,
-            first_name=fname,
-            last_login=time_now(),
-            is_active=True,
-            date_joined=time_now(),
-            address=address,
-            city=get_city,
-            phone=phone)
-        get_in.save()
-        return home(request)
+
+        try:
+            get_city = get_city_id(city)
+            get_in = CustomUser(
+                is_superuser=False,
+                is_staff=False,
+                username=username,
+                password=password,
+                email=email_,
+                last_name=lname,
+                first_name=fname,
+                last_login=time_now(),
+                is_active=True,
+                date_joined=time_now(),
+                address=address,
+                city=get_city,
+                phone=phone)
+            get_in.save()
+
+            return home(request, username)
+        except:
+            return signup(request)
     else:
         region_list = regions()
 
         return render(request, 'signup_form.html', {"regions": region_list})
 
 
-def main_shop(request,brand):
-
+def main_shop(request, brand):
     brand_list = brands()
     years = get_years()
-    return render(request, 'main.html', {'brands': brand_list,'years':years,'brand':brand})
+    return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand})
 
 
 def reset_password(request):
