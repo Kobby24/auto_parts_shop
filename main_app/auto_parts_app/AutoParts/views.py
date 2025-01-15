@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import CustomUser
 from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id
+from django.contrib.auth import authenticate
 
 
 # Create your views here.
@@ -9,8 +10,11 @@ from .utils import password_h, time_now, MyBackend, regions, brands, get_years, 
 def home(request, user=''):
     brand_list = brands()
     years = get_years()
+
     try:
         user = CustomUser.objects.get(username=user)
+        u = CustomUser.is_authenticated
+        print(u)
         if user.is_active == 1:
             return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_out': True})
 
@@ -86,6 +90,7 @@ def signup(request):
 def main_shop(request, brand):
     brand_list = brands()
     years = get_years()
+    # if brand ==
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand})
 
 
