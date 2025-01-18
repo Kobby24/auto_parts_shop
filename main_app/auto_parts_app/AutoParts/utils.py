@@ -2,7 +2,7 @@ from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
-from .models import Model, CustomUser, Region, City, Brands
+from .models import Model, CustomUser, Region, City, Brands, Part
 
 import os
 
@@ -87,6 +87,26 @@ def brands():
 def get_years(start=1998, end=2025):
     return [year for year in range(start, end + 1)]
 
+
 def get_city_id(city):
     cities = City.objects.get(city=city)
     return cities
+
+
+def get_part_pic(id_:list):
+    pics = []
+    for i in id_:
+        parts = Part.object.all().filter(model=i)
+
+        for part in parts:
+            pics.append(part.pic_url)
+    return pics
+
+
+def get_part_by_brand(parm: str):
+    model = get_model(parm)
+    model_ids = []
+    for m in model:
+        mod=Model.objects.get(m)
+        model_ids.append(mod.model_id)
+    get_part_pic(model_ids)
