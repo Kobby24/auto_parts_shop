@@ -3,8 +3,7 @@ from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
 from .models import Model, CustomUser, Region, City, Brands, Part
-from random import randrange
-
+from random import randint
 
 import os
 
@@ -12,6 +11,13 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'main_app/auto_parts_app/auto_parts_app/settings.py')  # Update 'main_app.settings' to match
 # your settings module path
 django.setup()
+
+
+def cut(d: list):
+    if len(d) > 12:
+        r = randint(0 + 12, (len(d)) - 12)
+        print(r)
+        return d[(r - 12):r]
 
 
 class MyBackend(BaseBackend):
@@ -95,7 +101,7 @@ def get_city_id(city):
     return cities
 
 
-def get_part_pic(id_:list):
+def get_part_pic(id_: list):
     pics = []
     for i in id_:
         parts = Part.objects.all().filter(model=i)
@@ -110,11 +116,9 @@ def get_part_by_brand(parm: str):
     model_ids = []
     part_dic = []
     for m in model:
-        mod=Model.objects.get(model=m)
+        mod = Model.objects.get(model=m)
         model_ids.append(mod.model_id)
     for pic in get_part_pic(model_ids):
         part_name = ((((pic.split('/'))[3]).split('.'))[0]).title()
-        part_dic.append({'part_name':part_name,'part_pic':pic})
-    return part_dic
-
-
+        part_dic.append({'part_name': part_name, 'part_pic': pic})
+    return cut(part_dic)
