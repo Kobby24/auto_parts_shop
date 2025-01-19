@@ -3,6 +3,8 @@ from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
 from .models import Model, CustomUser, Region, City, Brands, Part
+from random import randrange
+
 
 import os
 
@@ -106,7 +108,13 @@ def get_part_pic(id_:list):
 def get_part_by_brand(parm: str):
     model = get_model(parm)
     model_ids = []
+    part_dic = []
     for m in model:
         mod=Model.objects.get(model=m)
         model_ids.append(mod.model_id)
-    return get_part_pic(model_ids)
+    for pic in get_part_pic(model_ids):
+        part_name = ((((pic.split('/'))[3]).split('.'))[0]).title()
+        part_dic.append({'part_name':part_name,'part_pic':pic})
+    return part_dic
+
+
