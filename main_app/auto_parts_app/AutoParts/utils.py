@@ -96,7 +96,7 @@ def get_city_id(city):
 def get_part_pic(id_:list):
     pics = []
     for i in id_:
-        parts = Part.object.all().filter(model=i)
+        parts = Part.objects.all().filter(model=i)
 
         for part in parts:
             pics.append(part.pic_url)
@@ -107,6 +107,6 @@ def get_part_by_brand(parm: str):
     model = get_model(parm)
     model_ids = []
     for m in model:
-        mod=Model.objects.get(m)
+        mod=Model.objects.get(model=m)
         model_ids.append(mod.model_id)
-    get_part_pic(model_ids)
+    return get_part_pic(model_ids)
