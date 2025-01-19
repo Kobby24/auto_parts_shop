@@ -1,3 +1,5 @@
+import pprint
+
 from django.shortcuts import render
 from .models import CustomUser
 from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id,get_part_by_brand
@@ -91,7 +93,7 @@ def main_shop(request, brand):
     brand_list = brands()
     years = get_years()
     if brand == "Toyota":
-        print(get_part_by_brand(brand))
+        pprint.pprint(get_part_by_brand(brand))
 
 
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand})
