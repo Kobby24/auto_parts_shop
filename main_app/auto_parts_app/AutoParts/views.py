@@ -93,10 +93,10 @@ def main_shop(request, brand):
     brand_list = brands()
     years = get_years()
     if brand == "Toyota":
-        pprint.pprint(get_part_by_brand(brand))
+        part =get_part_by_brand(brand)
 
 
-    return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand})
+    return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand,'part':part})
 
 
 def reset_password(request):
