@@ -8,7 +8,7 @@
         <section class="py-5 text-center container">
           <div class="row py-lg-5 bg-dark  opacity-70" style="background-image: url('../static/home_pic/{{ brand }}-shop.jpg'); background-repeat: no-repeat; background-size: cover; height: 300px;">
             <div class="col-lg-6 col-md-8 mx-auto">
-              <h1  style="color: rgb(222, 101, 2);">{{ brand }} Shop</h1>
+              <h1  style="color: rgb(33,37,41);">{{ brand }} Shop</h1>
             </div>
           </div>
         </section>
@@ -17,7 +17,7 @@
           <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% for p in part %}
-              <div class="col">
+              <a href="" style="text-decoration:none;"><div class="col" >
 
                 <div class="card shadow-sm" data-product-id="1" data-price="20">
                     <img 
@@ -38,7 +38,7 @@
                   </div>
                 </div>
 
-              </div>
+              </div></a>
                 {% endfor %}
             </div>
           </div>
