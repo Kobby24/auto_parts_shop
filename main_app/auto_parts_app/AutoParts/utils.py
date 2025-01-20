@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
+from django.db import connection
 import django
 from .models import Model, CustomUser, Region, City, Brands, Part
 from random import randint
@@ -124,7 +125,7 @@ def get_part_by_brand(parm: str):
     return cut(part_dic)
 
 def get_part(part_name):
-    part_url = "../static/part_pic"+part_name
-    print(part_url)
-    part = Part.objects.get(pic_url=part_url)
-    return get_part_pic([part.part_id])
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM your_app_part WHERE name = %s%", [part_name])
+        result = cursor.fetchall()
+    return result

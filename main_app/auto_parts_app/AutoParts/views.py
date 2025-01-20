@@ -108,6 +108,6 @@ def buy(request):
     return render(request, 'payment.html')
 
 def product(request,prod_name):
-    print(prod_name)
-    print(get_part(prod_name))
+    print(prod_name.lower())
+    print(get_part(prod_name.lower()))
     return render(request,'product.html',{'name':prod_name})
