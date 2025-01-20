@@ -2,7 +2,8 @@ import pprint
 
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand
+from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand,get_part
+
 from django.contrib.auth import authenticate
 
 
@@ -107,4 +108,6 @@ def buy(request):
     return render(request, 'payment.html')
 
 def product(request,prod_name):
+    print(prod_name)
+    print(get_part(prod_name))
     return render(request,'product.html',{'name':prod_name})
