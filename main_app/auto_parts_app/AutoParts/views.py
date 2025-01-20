@@ -105,3 +105,6 @@ def reset_password(request):
 
 def buy(request):
     return render(request, 'payment.html')
+
+def product(request):
+    return render(request,'product.html')
