@@ -8,5 +8,5 @@ urlpatterns = [
     path("shop/<brand>", views.main_shop, name="main_shop"),
     path("reset/", views.reset_password, name="reset_password"),
     path("pay/",views.buy,name='buy'),
-    path("product/",views.product,name='product')
+    path("product/<prod_name>",views.product,name='product')
 ]
