@@ -109,5 +109,6 @@ def buy(request):
 
 def product(request,prod_name):
 
-    print(get_part(prod_name.lower()))
-    return render(request,'product.html',{'name':prod_name})
+    det = get_part(prod_name.lower())
+    print(det[0])
+    return render(request,'product.html',{'name':prod_name,'det':det})
