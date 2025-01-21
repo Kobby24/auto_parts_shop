@@ -124,8 +124,8 @@ def get_part_by_brand(parm: str):
         part_dic.append({'part_name': part_name, 'part_pic': pic})
     return cut(part_dic)
 
+
 def get_part(part_name):
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM your_app_part WHERE name = %s%", [part_name])
-        result = cursor.fetchall()
-    return result
+    name = "../static/parts_pic/" + part_name + ".jpg"
+    part = Part.objects.get(pic_url=name)
+    return [part.pic_url,part.price]
