@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
-from django.db import connection
 import django
 from .models import Model, CustomUser, Region, City, Brands, Part
 from random import randint
