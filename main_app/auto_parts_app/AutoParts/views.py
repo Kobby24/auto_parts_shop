@@ -2,7 +2,7 @@ import pprint
 
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand,get_part
+from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, get_part
 
 from django.contrib.auth import authenticate
 
@@ -107,8 +107,8 @@ def reset_password(request):
 def buy(request):
     return render(request, 'payment.html')
 
-def product(request,prod_name):
 
+def product(request, prod_name):
     det = get_part(prod_name.lower())
     print(det[0])
-    return render(request,'product.html',{'name':prod_name,'det':det})
+    return render(request, 'product.html', {'name': prod_name, 'det': det})
