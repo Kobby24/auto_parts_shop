@@ -127,4 +127,4 @@ def get_part_by_brand(parm: str):
 def get_part(part_name):
     name = "../static/parts_pic/" + part_name + ".jpg"
     part = Part.objects.get(pic_url=name)
-    return [part.pic_url,part.price]
+    return [part.pic_url,part.price,part.body]

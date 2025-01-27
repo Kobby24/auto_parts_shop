@@ -9,45 +9,11 @@
       <div class="position-sticky" style="top: 2rem;">
         <div class="p-4 mb-3 bg-body-tertiary rounded">
 
-          <img src="../static/parts_pic/camry-1997-1999-front-bumper.jpg" class="mb-0 card-img-top" style="">
+          <img src="{{ det|first }}" class="mb-0 card-img-top" style="">
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-
-
-
-
-      <article class="blog-post">
-        <h2 class="display-5 link-body-emphasis mb-1">Camry 1997/1999 Front Bumper</h2>
-
-        <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-        <blockquote>
-          <p>Longer quote goes here, maybe with some <strong>emphasized text</strong> in the middle of it.</p>
-        </blockquote>
-        <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-        <h3>Example table</h3>
-        <p>And don't forget about tables in these posts:</p>
-
-
-        <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-      </article>
-
-      <article class="blog-post">
-        <h2 class="display-5 link-body-emphasis mb-1">New feature</h2>
-        <p class="blog-post-meta">December 14, 2020 by <a href="#">Chris</a></p>
-
-        <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-        <ul>
-          <li>First list item</li>
-          <li>Second list item with a longer description</li>
-          <li>Third list item to close it out</li>
-        </ul>
-        <p>This is some additional paragraph placeholder content. It's a slightly shorter version of the other highly repetitive body text used throughout.</p>
-      </article>
-
-
-
-    </div>
+  {{ det.2|safe}}
+    <small></small>
   </div>
 {% endblock %}

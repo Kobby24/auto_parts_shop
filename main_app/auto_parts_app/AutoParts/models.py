@@ -150,7 +150,8 @@ class Part(models.Model):
     pic_url = models.TextField()
     price = models.IntegerField()
     year = models.TextField()
-    model = models.ForeignKey(Model, models.DO_NOTHING, db_column='model')
+    body = models.TextField()
+    model = models.ForeignKey(Model, models.DO_NOTHING, db_column='model',null=True,blank=True)
 
     class Meta:
         managed = True
