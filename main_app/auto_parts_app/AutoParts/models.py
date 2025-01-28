@@ -149,7 +149,7 @@ class Part(models.Model):
     part = models.TextField()
     pic_url = models.TextField()
     price = models.IntegerField()
-    year = models.TextField()
+    year = models.DateTimeField(default=now, null=True, blank=True)
     body = models.TextField()
     model = models.ForeignKey(Model, models.DO_NOTHING, db_column='model',null=True,blank=True)
 
