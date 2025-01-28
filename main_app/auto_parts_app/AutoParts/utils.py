@@ -147,3 +147,6 @@ def get_metalic():
 def get_light():
     return get_related_part("light")
 
+def get_bumper():
+    return get_related_part("bumper")
+

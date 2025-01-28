@@ -2,7 +2,7 @@ import pprint
 
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, get_part,get_light
+from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, get_part,get_light,get_bumper
 
 from django.contrib.auth import authenticate
 
@@ -100,6 +100,8 @@ def main_shop(request, brand):
         part = ""
     if brand == "Light":
         part = get_light()
+    if brand == "Bumper":
+        part = get_bumper()
 
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part})
 
