@@ -129,7 +129,8 @@ def get_part(part_name):
 
     part = Part.objects.filter(pic_url__icontains=part_name)[0]
     r_list = get_related_part(join)
-    return [part.pic_url, part.price, part.body, r_list]
+    part_name = ((((part.pic_url.split('/'))[3]).split('.'))[0]).title()
+    return [part.pic_url, part.price, part.body, r_list,part_name]
 
 
 def get_related_part(parm: str):
