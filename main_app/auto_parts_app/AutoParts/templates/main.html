@@ -18,7 +18,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% for p in part %}
 
-                <div class="card shadow-sm" data-product-id="1" data-price="20">
+                <div class="card shadow-sm" data-product-id="1" data-price="{{ p.price }}">
                  <div class="col" ><a href="{% url 'product' prod_name=p.part_name%}" style="text-decoration:none;">
                      <img
                     src="{{ p.part_pic }}"
