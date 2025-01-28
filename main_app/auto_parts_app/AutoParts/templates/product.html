@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block head %}
+      <a type="button" href="{% url 'buy' %}" style="text-decoration: none; color:white;"><span id="cart-icon">🛒<span id="cart-count">(0)</span></span></a>
+{% endblock %}
 {% block content %}
 
 

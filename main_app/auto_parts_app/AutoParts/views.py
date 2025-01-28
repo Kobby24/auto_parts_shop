@@ -9,10 +9,11 @@ from django.contrib.auth import authenticate
 
 # Create your views here.
 
+brand_list = brands()
+years = get_years()
 
 def home(request, user=''):
-    brand_list = brands()
-    years = get_years()
+
 
     try:
         user = CustomUser.objects.get(username=user)
@@ -92,15 +93,14 @@ def signup(request):
 
 def main_shop(request, brand):
     part = ''
-    brand_list = brands()
-    years = get_years()
+
     if brand == "Toyota":
         part = get_part_by_brand(brand)
-    if brand == "Metalic":
+    elif brand == "Metalic":
         part = ""
-    if brand == "Light":
+    elif brand == "Light":
         part = get_light()
-    if brand == "Bumper":
+    elif brand == "Bumper":
         part = get_bumper()
 
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part})
@@ -116,4 +116,5 @@ def buy(request):
 
 def product(request, prod_name):
     det = get_part(prod_name.lower())
-    return render(request, 'product.html', {'name': prod_name, 'det': det})
+    
+    return render(request, 'product.html', {'brands': brand_list, 'years': years,'name': prod_name, 'det': det})
