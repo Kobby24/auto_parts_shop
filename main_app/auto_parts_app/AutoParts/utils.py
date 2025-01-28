@@ -105,7 +105,7 @@ def get_part_pic(id_: list):
     for i in id_:
         parts = Part.objects.all().filter(model=i)
         for part in parts:
-            pics.append({'price': part.price, 'pic_url': part.pic_url})
+            pics.append({'part_price': part.price, 'pic_url': part.pic_url})
 
     return pics
 
@@ -120,7 +120,7 @@ def get_part_by_brand(parm: str):
     parts = get_part_pic(model_ids)
     for i in parts:
         part_name = (((((i['pic_url']).split('/'))[3]).split('.'))[0]).title()
-        part_dic.append({'part_name': part_name, 'part_pic': i['pic_url'],'price':i['price']})
+        part_dic.append({'part_name': part_name, 'part_pic': i['pic_url'],'part_price':i['part_price']})
     return cut(part_dic)
 
 
@@ -139,3 +139,10 @@ def get_related_part(parm: str):
         part_name = ((((r.pic_url.split('/'))[3]).split('.'))[0]).title()
         part_dic.append({'part_name': part_name, 'part_pic': r.pic_url, "part_price": r.price})
     return part_dic
+
+def get_metalic():
+    Part.objects.filter()
+
+def get_light():
+    return get_related_part("light")
+

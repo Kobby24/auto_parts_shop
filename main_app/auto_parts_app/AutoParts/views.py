@@ -2,7 +2,7 @@ import pprint
 
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, get_part
+from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, get_part,get_light
 
 from django.contrib.auth import authenticate
 
@@ -96,6 +96,10 @@ def main_shop(request, brand):
     years = get_years()
     if brand == "Toyota":
         part = get_part_by_brand(brand)
+    if brand == "Metalic":
+        part = ""
+    if brand == "Light":
+        part = get_light()
 
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part})
 
@@ -110,5 +114,4 @@ def buy(request):
 
 def product(request, prod_name):
     det = get_part(prod_name.lower())
-
     return render(request, 'product.html', {'name': prod_name, 'det': det})
