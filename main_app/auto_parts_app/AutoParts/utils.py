@@ -105,7 +105,8 @@ def get_part_pic(id_: list):
     for i in id_:
         parts = Part.objects.all().filter(model=i)
         for part in parts:
-            pics.append(part.pic_url)
+            pics.append({'price': part.price, 'pic_url': part.pic_url})
+
     return pics
 
 
@@ -116,9 +117,10 @@ def get_part_by_brand(parm: str):
     for m in model:
         mod = Model.objects.get(model=m)
         model_ids.append(mod.model_id)
-    for pic in get_part_pic(model_ids):
-        part_name = ((((pic.split('/'))[3]).split('.'))[0]).title()
-        part_dic.append({'part_name': part_name, 'part_pic': pic})
+    parts = get_part_pic(model_ids)
+    for i in parts:
+        part_name = (((((i['pic_url']).split('/'))[3]).split('.'))[0]).title()
+        part_dic.append({'part_name': part_name, 'part_pic': i['pic_url'],'price':i['price']})
     return cut(part_dic)
 
 
@@ -127,7 +129,7 @@ def get_part(part_name):
 
     part = Part.objects.filter(pic_url__icontains=part_name)[0]
     r_list = get_related_part(join)
-    return [part.pic_url, part.price, part.body,r_list]
+    return [part.pic_url, part.price, part.body, r_list]
 
 
 def get_related_part(parm: str):
@@ -135,5 +137,5 @@ def get_related_part(parm: str):
     part_dic = []
     for r in related_parts:
         part_name = ((((r.pic_url.split('/'))[3]).split('.'))[0]).title()
-        part_dic.append({'part_name': part_name, 'part_pic': r.pic_url,"part_price":r.price})
+        part_dic.append({'part_name': part_name, 'part_pic': r.pic_url, "part_price": r.price})
     return part_dic
