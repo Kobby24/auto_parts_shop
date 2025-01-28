@@ -17,7 +17,7 @@ def home(request, user=''):
     try:
         user = CustomUser.objects.get(username=user)
         u = CustomUser.is_authenticated
-        print(u)
+
         if user.is_active == 1:
             return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_out': True})
 
@@ -35,7 +35,7 @@ def login(request):
         password = password_h(password)
         user_ = MyBackend()
         is_verified = user_.authenticate(password=password, email=email_, request=request)
-        print(is_verified)
+
         if is_verified[0]:
             if is_verified[1]:
                 return home(request, (CustomUser.objects.get(email=email_)).username)
@@ -110,5 +110,5 @@ def buy(request):
 
 def product(request, prod_name):
     det = get_part(prod_name.lower())
-    print(det[0])
+    pprint.pprint(det[3])
     return render(request, 'product.html', {'name': prod_name, 'det': det})

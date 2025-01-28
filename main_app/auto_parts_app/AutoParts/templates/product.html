@@ -10,10 +10,58 @@
         <div class="p-4 mb-3 bg-body-tertiary rounded">
 
           <img src="{{ det|first }}" class="mb-0 card-img-top" style="">
+
+
+
         </div>
+<div class="container text-center">
+  <div class="row align-items-center">
+    <div class="col">
+      <strong class="card-text text-center">GH₵<span></span>{{ det.1 }}.00</strong>
+    </div>
+    <div class="col">
+      <a href="#" class="btn btn-primary">Add to  cart</a>
+    </div>
+  </div>
+</div>
       </div>
     </div>
   {{ det.2|safe}}
-    <small></small>
+
   </div>
+<div class="album py-5 bg-body-tertiary">
+          <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for p in det.3 %}
+
+                <div class="card shadow-sm" data-product-id="1" data-price="20">
+                 <div class="col" ><a href="{% url 'product' prod_name=p.part_name%}" style="text-decoration:none;">
+                     <img
+                    src="{{ p.part_pic }}"
+                    alt="Thumbnail"
+                    class="bd-placeholder-img card-img-top"
+                    width="100%"
+                    height="225"
+                    style="object-fit: cover; background-color: #55595c; color: #eceeef; display: flex; justify-content: center; align-items: center;"></a>
+                                    <div class="card-body">
+                                        <p class="card-text">{{ p.part_name }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-primary add-to-cart-btn">Add to cart</button>
+                      </div>
+                      <small class=""><span>GH₵</span>{{ p.part_price }}.00</small>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div id="cart">
+          <h2>Shopping Cart</h2>
+          <ul id="cart-items"></ul>
+          <p>Total: GH₵<span id="cart-total">0.00</span></p>
+        </div>
 {% endblock %}

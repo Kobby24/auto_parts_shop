@@ -16,7 +16,6 @@ django.setup()
 def cut(d: list):
     if len(d) > 12:
         r = randint(0 + 12, (len(d)) - 12)
-        print(r)
         return d[(r - 12):r]
 
 
@@ -105,7 +104,6 @@ def get_part_pic(id_: list):
     pics = []
     for i in id_:
         parts = Part.objects.all().filter(model=i)
-
         for part in parts:
             pics.append(part.pic_url)
     return pics
@@ -125,6 +123,17 @@ def get_part_by_brand(parm: str):
 
 
 def get_part(part_name):
-    name = "../static/parts_pic/" + part_name + ".jpg"
-    part = Part.objects.get(pic_url=name)
-    return [part.pic_url,part.price,part.body]
+    join = "-".join(part_name.split('-')[:3])
+
+    part = Part.objects.filter(pic_url__icontains=part_name)[0]
+    r_list = get_related_part(join)
+    return [part.pic_url, part.price, part.body,r_list]
+
+
+def get_related_part(parm: str):
+    related_parts = Part.objects.filter(pic_url__icontains=parm)
+    part_dic = []
+    for r in related_parts:
+        part_name = ((((r.pic_url.split('/'))[3]).split('.'))[0]).title()
+        part_dic.append({'part_name': part_name, 'part_pic': r.pic_url,"part_price":r.price})
+    return part_dic
