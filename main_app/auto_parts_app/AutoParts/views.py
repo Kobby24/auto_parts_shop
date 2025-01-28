@@ -110,5 +110,5 @@ def buy(request):
 
 def product(request, prod_name):
     det = get_part(prod_name.lower())
-    pprint.pprint(det[3])
+
     return render(request, 'product.html', {'name': prod_name, 'det': det})
