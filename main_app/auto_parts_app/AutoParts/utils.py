@@ -2,8 +2,10 @@ from datetime import datetime
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
+from django.db.models import Q
+
 from .models import Model, CustomUser, Region, City, Brands, Part
-from random import randint
+from random import randint,shuffle
 
 import os
 
@@ -14,6 +16,7 @@ django.setup()
 
 
 def cut(d: list):
+    shuffle(d)
     if len(d) > 12:
         r = randint(0 + 12, (len(d)) - 12)
         return d[(r - 12):r]
@@ -120,7 +123,7 @@ def get_part_by_brand(parm: str):
     parts = get_part_pic(model_ids)
     for i in parts:
         part_name = (((((i['pic_url']).split('/'))[3]).split('.'))[0]).title()
-        part_dic.append({'part_name': part_name, 'part_pic': i['pic_url'],'part_price':i['part_price']})
+        part_dic.append({'part_name': part_name, 'part_pic': i['pic_url'], 'part_price': i['part_price']})
     return cut(part_dic)
 
 
@@ -130,7 +133,7 @@ def get_part(part_name):
     part = Part.objects.filter(pic_url__icontains=part_name)[0]
     r_list = get_related_part(join)
     part_name = ((((part.pic_url.split('/'))[3]).split('.'))[0]).title()
-    return [part.pic_url, part.price, part.body, r_list,part_name]
+    return [part.pic_url, part.price, part.body, r_list, part_name]
 
 
 def get_related_part(parm: str):
@@ -141,12 +144,18 @@ def get_related_part(parm: str):
         part_dic.append({'part_name': part_name, 'part_pic': r.pic_url, "part_price": r.price})
     return part_dic
 
+
 def get_metalic():
-    Part.objects.filter()
+    part_dic = []
+    for i in ['door','bonnet','fender']:
+        part_dic+=get_related_part(i)
+        print(part_dic)
+    return part_dic
+
 
 def get_light():
     return get_related_part("light")
 
+
 def get_bumper():
     return get_related_part("bumper")
-
