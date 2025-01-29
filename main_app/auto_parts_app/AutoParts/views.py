@@ -1,20 +1,19 @@
-import pprint
+
 
 from django.shortcuts import render
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, get_part,get_light,get_bumper,get_metalic
+from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, \
+    get_part, get_light, get_bumper, get_metalic
 
 from django.contrib.auth import authenticate
-
 
 # Create your views here.
 
 brand_list = brands()
 years = get_years()
 
+
 def home(request, user=''):
-
-
     try:
         user = CustomUser.objects.get(username=user)
         u = CustomUser.is_authenticated
@@ -98,12 +97,13 @@ def main_shop(request, brand):
         part = get_part_by_brand(brand)
     elif brand == "Metalic":
         part = get_metalic()
-        print("we")
+
     elif brand == "Light":
         part = get_light()
     elif brand == "Bumper":
         part = get_bumper()
-
+    elif brand == "Honda":
+        part = get_part_by_brand(brand)
 
 
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part})
@@ -120,4 +120,4 @@ def buy(request):
 def product(request, prod_name):
     det = get_part(prod_name.lower())
 
-    return render(request, 'product.html', {'brands': brand_list, 'years': years,'name': prod_name, 'det': det})
+    return render(request, 'product.html', {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det})

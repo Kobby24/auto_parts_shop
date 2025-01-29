@@ -1,7 +1,9 @@
-i = {
-    "part":2,
-    "like":4
-}
-
-for n in i:
-    print(i['part'])
+# import random
+#
+# i = [1, 2, 3, 4, 5, 6]
+#
+#
+# def h(li):
+#     return random.shuffle(k)
+#
+# print(h(i))
