@@ -1,4 +1,11 @@
-.search {
-    color: white;
-    opacity: 1;
+
+.nav-item {
+  display: inline-block  !important; /* Display list item inline */
+  /* Add spacing between list item and link */
+}
+
+.nav-link.cart-items{
+
+  color: blue !important; /* Style the link */
+  text-decoration: underline  !important;
 }

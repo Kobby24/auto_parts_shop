@@ -41,9 +41,18 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
 
     // Add item to cart display
     const listItem = document.createElement('li');
+    const delete_ = document.createElement('a');
+    delete_.href = '#';
     listItem.textContent = `${productName} - GH₵${productPrice.toFixed(2)}`;
+    const trashIcon = document.createElement('i');
+    trashIcon.classList.add('bi', 'bi-trash3');
+    delete_.appendChild(trashIcon);
+    delete_.classList.add('nav-link');
     listItem.classList.add('nav-item');
+
+
     cartItems.appendChild(listItem);
+    cartItems.appendChild(delete_);
 
     // Update total
     totalAmount += productPrice;
