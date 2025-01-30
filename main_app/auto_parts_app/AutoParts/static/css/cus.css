@@ -13,11 +13,7 @@
 .bi-trash3:hover {
     color: red; /* Color on hover */
 }
- body {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+
 .sidebar {
     width: 280px;
     height: 100vh;
@@ -26,11 +22,12 @@
     border-right: 1px solid #ddd;
     position: fixed;
     overflow-y: auto;
+    margin-left: 0px;
 }
 .content {
     flex-grow: 1;
-    margin-left: 280px;
-    padding: 20px;
+    margin-left: 0px;
+
     overflow-y: auto;
     width: 100%;
 }

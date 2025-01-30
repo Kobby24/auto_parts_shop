@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="../static/logo/favicon-16x16.png">
     <title>24 Auto Parts</title>
 </head>
-<body class="container">
+<body class="content">
     <header class="p-3 text-bg-dark">
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -53,6 +53,7 @@
               <a href="{% url 'login' %}" type="button" class="btn btn-outline-light me-2">Login</a>
               <a href="{% url 'signup' %}" type="button" class="btn btn-warning">Sign-up</a>
                 {% endif %}
+
                       {% block head %}
                         {% endblock %}
             </div>
@@ -73,7 +74,7 @@
       </div>
 
       
-      <div class="container">
+      <div class="">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
 
 <ul class="nav col-md-4 justify-content-end ">
