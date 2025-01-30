@@ -4,8 +4,12 @@
   /* Add spacing between list item and link */
 }
 
-.nav-link.cart-items{
 
-  color: blue !important; /* Style the link */
-  text-decoration: underline  !important;
+.bi-trash3 {
+    color: blue; /* Default color */
+    transition: color 0.3s ease; /* Smooth transition */
+}
+
+.bi-trash3:hover {
+    color: red; /* Color on hover */
 }
