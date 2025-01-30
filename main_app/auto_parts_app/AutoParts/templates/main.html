@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
 {% block head %}
       <a type="button" href="{% url 'buy' %}" style="text-decoration: none; color:white;"><span id="cart-icon">🛒<span id="cart-count">(0)</span></span></a>
+
 {% endblock %}
+
+
 {% block content %}
+    <div class="sidebar d-flex flex-column flex-shrink-0">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+            <span class="fs-4">Sidebar</span>
+        </a>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a href="#" class="nav-link active">Home</a>
+            </li>
+            <li><a href="#" class="nav-link">Dashboard</a></li>
+            <li><a href="#" class="nav-link">Orders</a></li>
+            <li><a href="#" class="nav-link">Products</a></li>
+            <li><a href="#" class="nav-link">Customers</a></li>
+        </ul>
+
+    </div>
     <main>
 
         <section class="py-5 text-center container">
@@ -12,6 +31,7 @@
             </div>
           </div>
         </section>
+
       
         <div class="album py-5 bg-body-tertiary">
           <div class="container">
