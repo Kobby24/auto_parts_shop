@@ -5,20 +5,14 @@
 {% endblock %}
 
 {% block title %}
-    <div class="sidebar d-flex flex-column flex-shrink-0">
+
+    <div class="sidebar d-flex flex-column flex-shrink-0" id="cart">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
             <span class="fs-4">Shopping Cart</span>
         </a>
         <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li class="nav-item">
-                <a href="#" class="nav-link active">Home</a>
-            </li>
-            <li><a href="#" class="nav-link">Dashboard</a></li>
-            <li><a href="#" class="nav-link">Orders</a></li>
-            <li><a href="#" class="nav-link">Products</a></li>
-            <li><a href="#" class="nav-link">Customers</a></li>
-        </ul>
+        <ul id="cart-items" class="col-md-4 justify-content-s cart-items"></ul>
+          <p>Total: GH₵<span id="cart-total">0</span></p>
 
     </div>
     {% endblock %}
@@ -66,11 +60,7 @@
             </div>
           </div>
         </div>
-        <div id="cart">
-          <h2></h2>
-          <ul id="cart-items" class="col-md-4 justify-content-s cart-items"></ul>
-          <p>Total: GH₵<span id="cart-total">0</span></p>
-        </div>
+
 
       </main>
 {% endblock %}
