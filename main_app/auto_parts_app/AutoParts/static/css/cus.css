@@ -22,12 +22,11 @@
     border-right: 1px solid #ddd;
     position: fixed;
     overflow-y: auto;
-    margin-left: 0px;
+    margin-top: 20px;
 }
 .content {
     flex-grow: 1;
     margin-left: 200px;
-
     overflow-y: auto;
     width: 80%;
 }
