@@ -63,7 +63,7 @@
       </header>
     {% block title %}
     {% endblock %}
-    <div  class="content">
+    <div  class="{% if brand %}content{% endif %}">
     {% block content %}
     {% endblock %}
 </div>
