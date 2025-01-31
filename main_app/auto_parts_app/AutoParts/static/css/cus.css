@@ -26,7 +26,8 @@
 }
 .content {
     flex-grow: 1;
-    margin-right: 200px;
+    margin-left: 200px;
+
     overflow-y: auto;
-    width: 100%;
+    width: 80%;
 }
