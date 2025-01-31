@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block head %}
       <a type="button" href="{% url 'buy' %}" style="text-decoration: none; color:white;"><span id="cart-icon">🛒<span id="cart-count">(0)</span></span></a>
-        <div class="sidebar d-flex flex-column flex-shrink-0">
+
+{% endblock %}
+
+{% block title %}
+    <div class="sidebar d-flex flex-column flex-shrink-0">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
             <span class="fs-4">Shopping Cart</span>
         </a>
@@ -17,8 +21,7 @@
         </ul>
 
     </div>
-{% endblock %}
-
+    {% endblock %}
 
 {% block content %}
 
