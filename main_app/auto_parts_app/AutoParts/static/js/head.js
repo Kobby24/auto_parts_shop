@@ -81,3 +81,16 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
     cartNum.textContent = totalNum.toString();
   });
 });
+
+async function loadContent() {
+    try {
+        const response = await fetch('file1.html');
+        const text = await response.text();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = text;
+        const content = tempDiv.querySelector('#content-to-load').innerHTML;
+        document.getElementById('content-placeholder').innerHTML = content;
+    } catch (error) {
+        console.error('Failed to load content:', error);
+    }
+}
