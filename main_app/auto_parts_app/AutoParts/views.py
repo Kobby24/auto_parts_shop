@@ -1,6 +1,7 @@
 
-
-from django.shortcuts import render
+from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
+from django.shortcuts import render,redirect
 from .models import CustomUser
 from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, \
     get_part, get_light, get_bumper, get_metalic
@@ -13,7 +14,7 @@ brand_list = brands()
 years = get_years()
 
 
-def home(request, user=''):
+def home(request):
     try:
         user = CustomUser.objects.get(username=user)
         u = CustomUser.is_authenticated
@@ -27,28 +28,24 @@ def home(request, user=''):
         return render(request, 'home.html', {'brands': brand_list, 'years': years})
 
 
-def login(request):
+def login_user(request):
     hid = False
     if request.method == "POST":
         email_ = request.POST.get('email')
-        password = request.POST.get('password')
-        password = password_h(password)
-        user_ = MyBackend()
-        is_verified = user_.authenticate(password=password, email=email_, request=request)
 
-        if is_verified[0]:
-            if is_verified[1]:
-                return home(request, (CustomUser.objects.get(email=email_)).username)
-            else:
-                hid = True
-                message = "Wrong password rest it"
-                return render(request, "login_form.html", {'hid': hid, 'message': message})
+        password = request.POST.get('password')
+
+        user_ = authenticate(request,email=email_,password=password)
+
+
+        if user_ is not None:
+
+            return redirect("home")
 
         else:
-            hid = True
-            message = 'Sorry no account found Sign Up'
-            return render(request, "login_form.html", {'hid': hid, 'message': message})
-    return render(request, "login_form.html", {'hid': hid})
+            messages.success(request,"There was an error logging in")
+
+        return redirect("login")
 
 
 def signup(request):

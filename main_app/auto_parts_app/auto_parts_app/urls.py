@@ -1,3 +1,4 @@
+
 """
 URL configuration for auto_parts_app project.
 
@@ -19,5 +20,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("AutoParts.urls"))
+    path('',include("django.contrib.auth.urls")),
+    path('', include("AutoParts.urls")),
+
 ]
