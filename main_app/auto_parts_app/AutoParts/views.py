@@ -31,16 +31,12 @@ def login_(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-        print(username)
-
         user_ = authenticate(request, username=username, password=password)
-
         if user_ is not None:
             login(request, user_)
             return redirect("home")
         else:
             messages.success(request, "There was an error logging in")
-            print("some")
             return redirect("login_")
     return render(request, "registration/login.html", {})
 
