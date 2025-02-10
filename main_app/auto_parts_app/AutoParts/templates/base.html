@@ -54,10 +54,13 @@
                 {{ message }}
                 {% endfor %}
                 {% endif %}
-                {% if not is_logged_out %}
+                {% if not user %}
               <a href="{% url 'login_' %}" type="button" class="btn btn-outline-light me-2">Login</a>
               <a href="{% url 'signup' %}" type="button" class="btn btn-warning">Sign-up</a>
+                {% else %}
+                <a href="{% url 'logout_' %}" type="button" class="btn btn-warning">Logout</a>
                 {% endif %}
+
 
                       {% block head %}
                         {% endblock %}

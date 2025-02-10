@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout,user_logged_in
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import CustomUser
@@ -11,35 +11,43 @@ from django.contrib.auth import authenticate
 
 brand_list = brands()
 years = get_years()
+user_ = None
+
+def check_user(user):
+    if user is not None:
+        user = user.is_authenticated
+        return user
+    else:
+        user = False
+        return user
 
 
 def home(request):
-    # try:
-    #     # user = CustomUser.objects.get(username)
-    #     u = CustomUser.is_authenticated
-    #
-    #     # if user.is_active == 1:
-    #     #     return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_out': True})
-    #
-    #
-    #
-    # except:
-    return render(request, 'home.html', {'brands': brand_list, 'years': years})
+    global user_
+
+
+    return render(request, 'home.html', {'brands': brand_list, 'years': years,'user':check_user(user_)})
 
 
 def login_(request):
+    global user_
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
         user_ = authenticate(request, username=username, password=password)
         if user_ is not None:
             login(request, user_)
+
             return redirect("home")
         else:
             messages.success(request, "There was an error logging in")
             return redirect("login_")
     return render(request, "registration/login.html", {})
 
+def logout_(request):
+    global user_
+    logout(user_)
+    return redirect('home')
 
 def signup(request):
     print("some")
@@ -82,6 +90,7 @@ def signup(request):
 
 
 def main_shop(request, brand):
+    global  user_
     part = ''
 
     if brand == "Toyota":
@@ -96,7 +105,7 @@ def main_shop(request, brand):
     elif brand == "Honda":
         part = get_part_by_brand(brand)
 
-    return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part})
+    return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part,'user':check_user(user_)})
 
 
 def reset_password(request):
@@ -108,6 +117,7 @@ def buy(request):
 
 
 def product(request, prod_name):
+    global user_
     det = get_part(prod_name.lower())
 
-    return render(request, 'product.html', {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det})
+    return render(request, 'product.html', {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det,'user':check_user(user_)})
