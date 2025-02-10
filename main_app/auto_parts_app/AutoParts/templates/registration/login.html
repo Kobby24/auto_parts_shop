@@ -13,19 +13,26 @@
 </head>
 <body>
     <div class="form-container">
+
     <main class="form-signin w-100 m-auto">
-        <form class="sign-in-form needs-validation" method="POST" action="{% url 'login' %}" novalidate>
+        {% if messages %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                {% endif %}
+
+        <form class="sign-in-form needs-validation" method="POST" action="{% url 'login_' %}" novalidate>
   {% csrf_token %}
-            {% if hid == True %}
-            <div class="form-floating">
-                 <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>
-            </div>
-            {% endif %}
+<!--            {% if hid == True %}-->
+<!--            <div class="form-floating">-->
+<!--                 <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>-->
+<!--            </div>-->
+<!--            {% endif %}-->
   <div class="form-floating mb-3">
-    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
-    <label for="floatingInput">Email address</label>
+    <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username" required>
+    <label for="floatingInput">Username</label>
     <div class="invalid-feedback">
-      Please enter your email.
+      Please enter your username.
     </div>
   </div>
 
