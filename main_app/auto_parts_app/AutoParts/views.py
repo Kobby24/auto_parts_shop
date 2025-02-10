@@ -1,7 +1,6 @@
-
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from .models import CustomUser
 from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, \
     get_part, get_light, get_bumper, get_metalic
@@ -15,40 +14,39 @@ years = get_years()
 
 
 def home(request):
-    try:
-        user = CustomUser.objects.get(username=user)
-        u = CustomUser.is_authenticated
+    # try:
+    #     # user = CustomUser.objects.get(username)
+    #     u = CustomUser.is_authenticated
+    #
+    #     # if user.is_active == 1:
+    #     #     return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_out': True})
+    #
+    #
+    #
+    # except:
+    return render(request, 'home.html', {'brands': brand_list, 'years': years})
 
-        if user.is_active == 1:
-            return render(request, 'home.html', {'brands': brand_list, 'years': years, 'is_logged_out': True})
 
-
-
-    except:
-        return render(request, 'home.html', {'brands': brand_list, 'years': years})
-
-
-def login_user(request):
-    hid = False
+def login_(request):
     if request.method == "POST":
-        email_ = request.POST.get('email')
-
+        username = request.POST.get('username')
         password = request.POST.get('password')
+        print(username)
 
-        user_ = authenticate(request,email=email_,password=password)
-
+        user_ = authenticate(request, username=username, password=password)
 
         if user_ is not None:
-
+            login(request, user_)
             return redirect("home")
-
         else:
-            messages.success(request,"There was an error logging in")
-
-        return redirect("login")
+            messages.success(request, "There was an error logging in")
+            print("some")
+            return redirect("login_")
+    return render(request, "registration/login.html", {})
 
 
 def signup(request):
+    print("some")
     if request.method == "POST" and request.POST:
 
         fname = request.POST.get('fname')
@@ -101,7 +99,6 @@ def main_shop(request, brand):
         part = get_bumper()
     elif brand == "Honda":
         part = get_part_by_brand(brand)
-
 
     return render(request, 'main.html', {'brands': brand_list, 'years': years, 'brand': brand, 'part': part})
 
