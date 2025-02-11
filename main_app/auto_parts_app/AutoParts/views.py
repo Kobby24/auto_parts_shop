@@ -46,7 +46,7 @@ def login_(request):
 
 def logout_(request):
     global user_
-    logout(user_)
+    logout(request)
     return redirect('home')
 
 def signup(request):
@@ -79,8 +79,11 @@ def signup(request):
                 city=get_city,
                 phone=phone)
             get_in.save()
-
-            return home(request, username)
+            user_ = authenticate(request, username=username, password=password)
+            print(user_)
+            if user_ is not None:
+                login(request, user_)
+                return redirect("home")
         except:
             return signup(request)
     else:
