@@ -123,4 +123,4 @@ def product(request, prod_name):
     global user_
     det = get_part(prod_name.lower())
 
-    return render(request, 'product.html', {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det,'user':check_user(user_)})
+    return render(request, 'product.html', {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det,'user':check_user(user_),"brand":True})
