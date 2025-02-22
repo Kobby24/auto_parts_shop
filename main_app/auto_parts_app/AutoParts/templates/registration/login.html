@@ -23,11 +23,7 @@
 
         <form class="sign-in-form needs-validation" method="POST" action="{% url 'login_' %}" novalidate>
   {% csrf_token %}
-<!--            {% if hid == True %}-->
-<!--            <div class="form-floating">-->
-<!--                 <a href="{% if 'password' in message %}{% url 'reset_password' %}{% else %}{% url 'signup' %}{% endif %}" style="color:red"><small>{{ message }}</small></a>-->
-<!--            </div>-->
-<!--            {% endif %}-->
+
   <div class="form-floating mb-3">
     <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username" required>
     <label for="floatingInput">Username</label>
