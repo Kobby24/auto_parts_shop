@@ -3,17 +3,13 @@
   display: inline-block  !important; /* Display list item inline */
   /* Add spacing between list item and link */
 }
-
-
 .bi-trash3 {
     color: blue; /* Default color */
     transition: color 0.3s ease; /* Smooth transition */
 }
-
 .bi-trash3:hover {
     color: red; /* Color on hover */
 }
-
 .sidebar {
     width: 200px;
     height: 100vh;
@@ -24,7 +20,6 @@
     overflow-y: auto;
     margin-bottom: 120px;
 }
-
 .content {
     flex-grow: 1;
     margin-left: 200px;
