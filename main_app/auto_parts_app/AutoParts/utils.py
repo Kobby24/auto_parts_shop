@@ -4,9 +4,8 @@ from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.hashers import PBKDF2PasswordHasher
 import django
 
-
 from .models import Model, CustomUser, Region, City, Brands, Part
-from random import randint,shuffle
+from random import randint, shuffle
 
 import os
 
@@ -17,8 +16,7 @@ django.setup()
 
 
 def cut(d: list):
-
-    return random.sample(d,len(d))
+    return random.sample(d, len(d))
 
 
 class MyBackend(BaseBackend):
@@ -120,7 +118,6 @@ def get_part_by_brand(parm: str):
         mod = Model.objects.get(model=m)
         model_ids.append(mod.model_id)
 
-
     parts = get_part_pic(model_ids)
 
     for i in parts:
@@ -150,8 +147,8 @@ def get_related_part(parm: str):
 
 def get_metalic():
     part_dic = []
-    for i in ['door','bonnet','fender']:
-        part_dic+=get_related_part(i)
+    for i in ['door', 'bonnet', 'fender']:
+        part_dic += get_related_part(i)
 
     return part_dic
 
