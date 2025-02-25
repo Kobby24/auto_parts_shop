@@ -130,10 +130,10 @@ def product(request, prod_name):
                    "brand": True})
 
 def search(request):
-    if request.method == 'POST':
-        brand = request.POST.get('brand')
-        model= request.POST.get('model')
-        year =request.POST.get('year')
-        print(brand,model,year)
-    print(None)
-    return render(request,'index.html')
+
+    brand = request.POST.get('brand')
+    model= request.POST.get('model')
+    year =request.POST.get('year')
+    print(brand,model,year)
+    print(request.method)
+    return render(request,'base.html')
