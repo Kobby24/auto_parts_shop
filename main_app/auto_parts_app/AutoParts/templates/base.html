@@ -21,10 +21,10 @@
               <li><a href="{% url 'home' %}" class="nav-link px-2" style="text-decoration:none; color:white;">Home</a></li>
             </ul>
     
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'search' %}">
   <div class="row g-2 align-items-center"> <!-- Added spacing and alignment -->
     <div class="col">
-      <select class="form-select search" id="brand" aria-label="Default select example">
+      <select class="form-select search" id="brand" aria-label="Default select example" name="brand">
         <option disabled selected>Brand</option>
         {% for brand in brands %}
         <option value="{{ brand.brand }}">{{ brand.brand }}</option>
@@ -32,12 +32,12 @@
       </select>
     </div>
     <div class="col">
-      <select class="form-select search" id="model" aria-label="Default select example">
+      <select class="form-select search" id="model" aria-label="Default select example" name="model">
         <option disabled selected>Model</option>
       </select>
     </div>
     <div class="col">
-      <select class="form-select search" id="year" aria-label="Default select example">
+      <select class="form-select search" id="year" aria-label="Default select example" name="year">
         <option disabled selected>Year</option>
         {% for year in years %}
         <option value="{{ year }}">{{ year }}</option>
