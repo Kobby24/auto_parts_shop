@@ -134,6 +134,5 @@ def search(request):
     brand = request.POST.get('brand')
     model= request.POST.get('model')
     year =request.POST.get('year')
-    print(brand,model,year)
-    print(request.method)
+
     return render(request,'base.html')
