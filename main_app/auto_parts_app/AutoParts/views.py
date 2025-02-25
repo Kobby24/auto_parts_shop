@@ -128,3 +128,12 @@ def product(request, prod_name):
     return render(request, 'product.html',
                   {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det, 'user': check_user(user_),
                    "brand": True})
+
+def search(request):
+    if request.method == 'POST':
+        brand = request.POST.get('brand')
+        model= request.POST.get('model')
+        year =request.POST.get('year')
+        print(brand,model,year)
+    print(None)
+    return render(request,'index.html')
