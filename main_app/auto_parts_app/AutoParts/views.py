@@ -2,8 +2,7 @@ from django.contrib.auth import authenticate, login, logout, user_logged_in
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import CustomUser
-from .utils import password_h, time_now, MyBackend, regions, brands, get_years, get_city_id, get_part_by_brand, \
-    get_part, get_light, get_bumper, get_metalic
+from .utils import *
 
 from django.contrib.auth import authenticate
 
@@ -134,5 +133,5 @@ def search(request):
     brand = request.GET.get('brand')
     model= request.GET.get('model')
     year =request.GET.get('year')
-    print(brand)
+    print(search_item(brand,model,year))
     return render(request,'base.html')
