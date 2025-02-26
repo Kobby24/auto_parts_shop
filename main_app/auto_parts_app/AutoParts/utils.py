@@ -159,3 +159,15 @@ def get_light():
 
 def get_bumper():
     return get_related_part("bumper")
+
+def search_item(brand,model,year):
+    try:
+        brand = Brands.objects.get(brand=brand)
+        model = Model.objects.get(model=model)
+        part = Part.objects.filter(model=model,pic_url__icontains=year)
+
+    except:
+        return None
+    else:
+        return part
+
