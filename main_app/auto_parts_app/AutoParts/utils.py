@@ -166,13 +166,17 @@ def search_item(brand,model,year):
         model = Model.objects.get(model=model)
 
         part = Part.objects.filter(model=model,pic_url__icontains=year)
-        print(part)
+
 
     except:
         return None
     else:
-        if len(part) <= 0:
+        if not part.exists():
             return None
         else:
-            return part
+            part_dic = []
+            for r in part:
+                part_name = ((((r.pic_url.split('/'))[3]).split('.'))[0]).title()
+                part_dic.append({'part_name': part_name, 'part_pic': r.pic_url, "part_price": r.price})
+            return part_dic
 
