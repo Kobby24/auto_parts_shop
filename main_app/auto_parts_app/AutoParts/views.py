@@ -131,8 +131,8 @@ def product(request, prod_name):
 
 def search(request):
 
-    brand = request.POST.get('brand')
-    model= request.POST.get('model')
-    year =request.POST.get('year')
-
+    brand = request.GET.get('brand')
+    model= request.GET.get('model')
+    year =request.GET.get('year')
+    print(brand)
     return render(request,'base.html')
