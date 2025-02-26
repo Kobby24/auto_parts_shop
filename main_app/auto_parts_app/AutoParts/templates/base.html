@@ -21,10 +21,10 @@
               <li><a href="{% url 'home' %}" class="nav-link px-2" style="text-decoration:none; color:white;">Home</a></li>
             </ul>
     
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'search' %}">
-  <div class="row g-2 align-items-center"> <!-- Added spacing and alignment -->
+<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'search' %}">
+  <div class="row g-2 align-items-center">
     <div class="col">
-      <select class="form-select search" id="brand" aria-label="Default select example" name="brand">
+      <select class="form-select search" id="brand" aria-label="Default select example" name="brand" onchange="updateButtonState()">
         <option disabled selected>Brand</option>
         {% for brand in brands %}
         <option value="{{ brand.brand }}">{{ brand.brand }}</option>
@@ -32,12 +32,12 @@
       </select>
     </div>
     <div class="col">
-      <select class="form-select search" id="model" aria-label="Default select example" name="model">
+      <select class="form-select search" id="model" aria-label="Default select example" name="model" onchange="updateButtonState()">
         <option disabled selected>Model</option>
       </select>
     </div>
     <div class="col">
-      <select class="form-select search" id="year" aria-label="Default select example" name="year">
+      <select class="form-select search" id="year" aria-label="Default select example" name="year" onchange="updateButtonState()">
         <option disabled selected>Year</option>
         {% for year in years %}
         <option value="{{ year }}">{{ year }}</option>
@@ -45,12 +45,27 @@
       </select>
     </div>
     <div class="col-auto">
-      <button type="submit" class="btn btn-dark">
+      <button type="submit" class="btn btn-dark" id="search-button" disabled>
         <i class="bi bi-search"></i>
       </button>
     </div>
   </div>
 </form>
+
+<script>
+  function updateButtonState() {
+    let brand = document.getElementById("brand").value;
+    let model = document.getElementById("model").value;
+    let year = document.getElementById("year").value;
+    let button = document.getElementById("search-button");
+
+    if (brand !== "Brand" && model !== "Model" && year !== "Year") {
+      button.removeAttribute("disabled");
+    } else {
+      button.setAttribute("disabled", "true");
+    }
+  }
+</script>
 
 
             <div class="text-end">
