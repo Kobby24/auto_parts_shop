@@ -164,10 +164,15 @@ def search_item(brand,model,year):
     try:
         brand = Brands.objects.get(brand=brand)
         model = Model.objects.get(model=model)
+
         part = Part.objects.filter(model=model,pic_url__icontains=year)
+        print(part)
 
     except:
         return None
     else:
-        return part
+        if len(part) <= 0:
+            return None
+        else:
+            return part
 
