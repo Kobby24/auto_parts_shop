@@ -128,20 +128,18 @@ def product(request, prod_name):
                   {'brands': brand_list, 'years': years, 'name': prod_name, 'det': det, 'user': check_user(user_),
                    "brand": True})
 
-def search(request):
 
+def search(request):
     brand = request.GET.get('brand')
-    model= request.GET.get('model')
-    year =request.GET.get('year')
-    part = search_item(brand,model,year)
+    model = request.GET.get('model')
+    year = request.GET.get('year')
+    part = search_item(brand, model, year)
     if part:
-        if len(part)<6:
+        if len(part) < 6:
             part += get_related_part(model)
     global user_
     if part is not None:
-        prod_name = f"{brand} {model} {year}"
-
         return render(request, 'main.html',
                       {'brands': brand_list, 'years': years, 'brand': brand, 'part': part, 'user': check_user(user_)})
     else:
-        return redirect('home')
+        return main_shop(request,brand=brand)
