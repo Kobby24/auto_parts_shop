@@ -133,5 +133,13 @@ def search(request):
     brand = request.GET.get('brand')
     model= request.GET.get('model')
     year =request.GET.get('year')
-    print(search_item(brand,model,year))
-    return render(request,'base.html')
+    det = search_item(brand,model,year)
+    if len(det)<6:
+        det += get_related_part(model)
+    global user_
+    if det is not None:
+        return render(request, 'product.html',
+                  {'brands': brand_list, 'years': years, 'name': f"{brand} {model} {year}", 'det': det, 'user': check_user(user_),
+                   "brand": True})
+    else:
+        return redirect('home')
