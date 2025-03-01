@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h2>Shopping Cart</h2>
+{% endblock %}
+
+{% block content %}
+    <div class="cart-container">
+        <ul id="cart-items"></ul>
+        <p>Total: GH₵<span id="cart-total">0</span></p>
+        <button id="clear-cart">Clear Cart</button>
+    </div>
+
+    <script>
+        // Load cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || { items: [], totalAmount: 0, totalNum: 0 };
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+
+        function updateCartDisplay() {
+            cartItems.innerHTML = '';
+            cart.totalAmount = 0;
+
+            cart.items.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.name} x${item.quantity} - GH₵${(item.price * item.quantity).toFixed(2)}`;
+
+                const delete_ = document.createElement('button');
+                delete_.textContent = 'Remove';
+                delete_.addEventListener('click', () => {
+                    if (item.quantity > 1) {
+                        item.quantity -= 1;
+                    } else {
+                        cart.items.splice(index, 1);
+                    }
+
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    updateCartDisplay();
+                });
+
+                listItem.appendChild(delete_);
+                cartItems.appendChild(listItem);
+
+                cart.totalAmount += item.price * item.quantity;
+            });
+
+            cartTotal.textContent = cart.totalAmount.toFixed(2);
+        }
+
+        // Clear cart button
+        document.getElementById('clear-cart').addEventListener('click', () => {
+            localStorage.removeItem('cart');
+            cart = { items: [], totalAmount: 0, totalNum: 0 };
+            updateCartDisplay();
+        });
+
+        // Update cart display on page load
+        updateCartDisplay();
+    </script>
+{% endblock %}
