@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}
-    <h2>Shopping Cart</h2>
+    <h2 class="text-center mt-4">Shopping Cart</h2>
 {% endblock %}
 
 {% block content %}
-    <div class="cart-container">
-        <ul id="cart-items"></ul>
-        <p>Total: GH₵<span id="cart-total">0</span></p>
-        <button id="clear-cart">Clear Cart</button>
+    <div class="container">
+        <div class="card shadow p-4">
+            <ul id="cart-items" class="list-group"></ul>
+            <p class="mt-3"><strong>Total:</strong> <span id="cart-total" class="alert alert-primary p-1">GH₵0</span></p>
+            <button id="clear-cart" class="btn btn-warning">Clear Cart</button>
+        </div>
     </div>
 
     <script>
@@ -22,28 +24,30 @@
 
             cart.items.forEach((item, index) => {
                 const listItem = document.createElement('li');
-                listItem.textContent = `${item.name} x${item.quantity} - GH₵${(item.price * item.quantity).toFixed(2)}`;
+                listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
 
-                const delete_ = document.createElement('button');
-                delete_.textContent = 'Remove';
-                delete_.addEventListener('click', () => {
-                    if (item.quantity > 1) {
-                        item.quantity -= 1;
-                    } else {
-                        cart.items.splice(index, 1);
-                    }
+                listItem.innerHTML = `
+                    <span><strong>${item.name}</strong> x${item.quantity} - GH₵${(item.price * item.quantity).toFixed(2)}</span>
+                    <button class="btn btn-danger btn-sm" onclick="removeItem(${index})">
+                        <i class="bi bi-trash3"></i>
+                    </button>
+                `;
 
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    updateCartDisplay();
-                });
-
-                listItem.appendChild(delete_);
                 cartItems.appendChild(listItem);
-
                 cart.totalAmount += item.price * item.quantity;
             });
 
-            cartTotal.textContent = cart.totalAmount.toFixed(2);
+            cartTotal.innerHTML = `<span class="alert alert-primary p-1">GH₵${cart.totalAmount.toFixed(2)}</span>`;
+        }
+
+        function removeItem(index) {
+            if (cart.items[index].quantity > 1) {
+                cart.items[index].quantity -= 1;
+            } else {
+                cart.items.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
         }
 
         // Clear cart button
