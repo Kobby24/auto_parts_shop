@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-
-
 // Select cart elements
 const cartItems = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
@@ -36,7 +34,9 @@ let cart = JSON.parse(localStorage.getItem('cart')) || { items: [], totalAmount:
 
 // Function to update the cart display
 function updateCartDisplay() {
-  cartItems.innerHTML = ''; // Clear current cart items
+  if (!cartItems || !cartTotal || !cartNum) return; // Prevent errors on pages without a cart section
+
+  cartItems.innerHTML = ''; // Clear cart display
   cart.totalAmount = 0;
   cart.totalNum = 0;
 
@@ -107,5 +107,11 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
   });
 });
 
-// Initialize cart display on page load
+// Ensure cart updates on page load
 updateCartDisplay();
+
+// Redirect to cart page when clicking the cart link
+document.getElementById('cart-icon')?.addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent default anchor action
+  window.location.href = "/cart/"; // Change to Django's cart page
+});
