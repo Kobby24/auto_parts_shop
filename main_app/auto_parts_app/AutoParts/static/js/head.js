@@ -34,28 +34,31 @@ let cart = JSON.parse(localStorage.getItem('cart')) || { items: [], totalAmount:
 
 // Function to update the cart display
 function updateCartDisplay() {
-  if (!cartItems || !cartTotal || !cartNum) return; // Prevent errors on pages without a cart section
+  if (!cartItems || !cartTotal || !cartNum) return; // Prevent errors on pages without a cart
 
-  cartItems.innerHTML = ''; // Clear cart display
+  cartItems.innerHTML = ''; // Clear current cart items
   cart.totalAmount = 0;
   cart.totalNum = 0;
 
   cart.items.forEach((item, index) => {
-    // Create list item
+    // Create Bootstrap list group item
     const listItem = document.createElement('li');
-    listItem.textContent = `${item.name} x${item.quantity} - GH₵${(item.price * item.quantity).toFixed(2)}`;
-    listItem.classList.add('nav-item');
+    listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
 
-    // Create delete button
+    // Item Name & Price
+    listItem.innerHTML = `
+      <span>
+        <strong>${item.name}</strong> - GH₵${(item.price * item.quantity).toFixed(2)}
+      </span>
+      <span class="badge bg-secondary">${item.quantity}</span>
+    `;
+
+    // Delete button with Bootstrap styles
     const delete_ = document.createElement('button');
-    delete_.classList.add('nav-link');
+    delete_.classList.add('btn', 'btn-danger', 'btn-sm', 'ms-2');
+    delete_.innerHTML = `<i class="bi bi-trash3"></i>`;
 
-    // Create trash icon
-    const trashIcon = document.createElement('i');
-    trashIcon.classList.add('bi', 'bi-trash3');
-    delete_.appendChild(trashIcon);
-
-    // Add event listener to delete button
+    // Add event listener to remove item
     delete_.addEventListener('click', () => {
       if (item.quantity > 1) {
         item.quantity -= 1;
@@ -67,18 +70,20 @@ function updateCartDisplay() {
       updateCartDisplay();
     });
 
-    // Append list item and delete button to cart
-    cartItems.appendChild(listItem);
-    cartItems.appendChild(delete_);
+    // Append delete button to list item
+    listItem.appendChild(delete_);
 
-    // Update total amount and total number of items
+    // Append to cart
+    cartItems.appendChild(listItem);
+
+    // Update totals
     cart.totalAmount += item.price * item.quantity;
     cart.totalNum += item.quantity;
   });
 
-  // Update cart display
-  cartTotal.textContent = cart.totalAmount.toFixed(2);
-  cartNum.textContent = `(${cart.totalNum})`;
+  // Update total amount and cart count display
+  cartTotal.innerHTML = `<span class="alert alert-primary p-1">GH₵${cart.totalAmount.toFixed(2)}</span>`;
+  cartNum.innerHTML = `<span class="badge bg-danger">${cart.totalNum}</span>`;
 }
 
 // Function to save cart to localStorage
@@ -107,11 +112,11 @@ document.querySelectorAll('.add-to-cart-btn').forEach(button => {
   });
 });
 
-// Ensure cart updates on page load
-updateCartDisplay();
-
 // Redirect to cart page when clicking the cart link
 document.getElementById('cart-icon')?.addEventListener('click', (event) => {
   event.preventDefault(); // Prevent default anchor action
   window.location.href = "/cart/"; // Change to Django's cart page
 });
+
+// Ensure cart updates on page load
+updateCartDisplay();
