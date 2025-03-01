@@ -117,8 +117,8 @@ def reset_password(request):
     return render(request, 'reset_password.html')
 
 
-def buy(request):
-    return render(request, 'payment.html')
+def cart(request):
+    return render(request, 'cart.html')
 
 
 def product(request, prod_name):
