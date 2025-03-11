@@ -28,7 +28,7 @@
 
                 listItem.innerHTML = `
                     <span><strong>${item.name}</strong> x${item.quantity} - GH₵${(item.price * item.quantity).toFixed(2)}</span>
-                    <button class="btn btn-danger btn-sm" onclick="removeItem(${index})">
+                    <button class="btn btn-sm" onclick="removeItem(${index})">
                         <i class="bi bi-trash3"></i>
                     </button>
                 `;
