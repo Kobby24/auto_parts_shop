@@ -55,7 +55,7 @@ function updateCartDisplay() {
 
     // Delete button with Bootstrap styles
     const delete_ = document.createElement('button');
-    delete_.classList.add('btn', 'btn-danger', 'btn-sm', 'ms-2');
+    delete_.classList.add('btn', 'btn-sm', 'ms-2');
     delete_.innerHTML = `<i class="bi bi-trash3"></i>`;
 
     // Add event listener to remove item
@@ -83,7 +83,7 @@ function updateCartDisplay() {
 
   // Update total amount and cart count display
   cartTotal.innerHTML = `<span class="alert alert-primary p-1">GH₵${cart.totalAmount.toFixed(2)}</span>`;
-  cartNum.innerHTML = `<span class="badge bg-danger">${cart.totalNum}</span>`;
+  cartNum.innerHTML = `<span class="badge ">${cart.totalNum}</span>`;
 }
 
 // Function to save cart to localStorage
