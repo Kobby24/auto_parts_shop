@@ -87,6 +87,8 @@ def signup(request):
                 return redirect("home")
         except:
             return signup(request)
+        else:
+            return redirect('home')
     else:
         region_list = regions()
 
