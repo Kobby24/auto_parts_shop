@@ -131,17 +131,21 @@ def get_part(part_name):
     join = "-".join(part_name.split('-')[:3])
 
     part = Part.objects.filter(pic_url__icontains=part_name)[0]
-    r_list = get_related_part(join)
     part_name = ((((part.pic_url.split('/'))[3]).split('.'))[0]).title()
+    r_list = get_related_part(join,part_name)
+
+
     return [part.pic_url, part.price, part.body, r_list, part_name]
 
 
-def get_related_part(parm: str):
+def get_related_part(parm: str,part=""):
     related_parts = Part.objects.filter(pic_url__icontains=parm)
     part_dic = []
     for r in related_parts:
         part_name = ((((r.pic_url.split('/'))[3]).split('.'))[0]).title()
-        part_dic.append({'part_name': part_name, 'part_pic': r.pic_url, "part_price": r.price})
+        print(part_name,part)
+        if part_name != part:
+            part_dic.append({'part_name': part_name, 'part_pic': r.pic_url, "part_price": r.price})
     return part_dic
 
 
