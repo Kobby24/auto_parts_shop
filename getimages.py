@@ -17,6 +17,12 @@ driver.get("https://dream-machine.lumalabs.ai/board/new")
 # Step 3: Wait for the page to load (adjust sleep or use WebDriverWait)
 time.sleep(10)
 
+driver.find_element(By.XPATH,"/html/body/div/div[2]/div[2]/div/a[1]").click()
+time.sleep(10)
+driver.find_element(By.XPATH,'//*[@id="identifierId"]').send_keys('kobbygilbert233@gmail.com')
+driver.find_element(By.XPATH,'//*[@id="identifierNext"]/div/button').click()
+
+
 # Step 4: Find the textarea or input box for prompt
 try:
     prompt_box = driver.find_element(By.TAG_NAME, "textarea")
@@ -36,6 +42,7 @@ except Exception as e:
     print("Error occurred:", e)
 
 # Optionally keep browser open
-# input("Press Enter to close browser...")
+input("Press Enter to close browser...")
+
 
 driver.quit()
