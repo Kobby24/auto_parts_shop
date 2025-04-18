@@ -118,7 +118,7 @@
             <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
               <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
             </a>
-            <span class="mb-3 mb-md-0 text-body-secondary">© 2024 24 Auto Parts, Inc</span>
+            <span class="mb-3 mb-md-0 text-body-secondary">Copyright © <span id="date"></span> 24 Auto Parts, Inc</span>
           </div>
       
 
@@ -126,6 +126,8 @@
       </div>
 </body>
 <script>
+    var dateNow = new Date();
+    document.getElementById("date").innerText = dateNow.getFullYear();
     const brandsData = {{ brands|safe }};
 </script>
 <script src="../static/js/head.js?v=1.9"></script>
