@@ -50,10 +50,14 @@ def logout_(request):
     return redirect('home')
 
 
-def signup(request):
-    print("some")
-    if request.method == "POST" and request.POST:
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.db import IntegrityError
+from django.shortcuts import render, redirect
+from django.utils.timezone import now as time_now
 
+def signup(request):
+    if request.method == "POST" and request.POST:
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
         username = request.POST.get('username')
@@ -62,14 +66,22 @@ def signup(request):
         phone = request.POST.get('phone')
         city = request.POST.get('city')
         password = request.POST.get('password')
-        password = password_h(password)
+        password_hashed = password_h(password)
+
+        get_city = get_city_id(city)
+
+        # Check if the username already exists
+        if CustomUser.objects.filter(username=username).exists():
+            error = "Username already taken. Please choose another."
+            region_list = regions()
+            return render(request, 'signup_form.html', {"regions": region_list, "error": error})
+
         try:
-            get_city = get_city_id(city)
             get_in = CustomUser(
                 is_superuser=False,
                 is_staff=False,
                 username=username,
-                password=password,
+                password=password_hashed,
                 email=email_,
                 last_name=lname,
                 first_name=fname,
@@ -78,21 +90,26 @@ def signup(request):
                 date_joined=time_now(),
                 address=address,
                 city=get_city,
-                phone=phone)
+                phone=phone
+            )
             get_in.save()
+
             user_ = authenticate(request, username=username, password=password)
-            print(user_)
             if user_ is not None:
                 login(request, user_)
                 return redirect("home")
-        except:
-            return signup(request)
-        else:
-            return redirect('home')
+            else:
+                return redirect("signup")
+
+        except IntegrityError as e:
+            error = "A user with that username or email already exists."
+            region_list = regions()
+            return render(request, 'signup_form.html', {"regions": region_list, "error": error})
+
     else:
         region_list = regions()
-
         return render(request, 'signup_form.html', {"regions": region_list})
+
 
 
 def main_shop(request, brand):
