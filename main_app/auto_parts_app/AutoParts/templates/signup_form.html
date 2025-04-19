@@ -43,6 +43,10 @@
                     </div>
                   </div>
                   <div class="col-sm-6">
+                      {% if error %}
+  <p style="color: red;">{{ error }}</p>
+{% endif %}
+
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" placeholder="" value="" required="required" name="username">
                     <div class="invalid-feedback">
