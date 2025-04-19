@@ -24,7 +24,7 @@ def check_user(user):
 
 def home(request):
     global user_
-
+    print(user_)
     return render(request, 'home.html', {'brands': brand_list, 'years': years, 'user': check_user(user_)})
 
 
@@ -56,7 +56,10 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.utils.timezone import now as time_now
 
+
 def signup(request):
+    next_url = request.GET.get('next') or request.META.get('HTTP_REFERER') or 'home'
+
     if request.method == "POST" and request.POST:
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
@@ -70,11 +73,14 @@ def signup(request):
 
         get_city = get_city_id(city)
 
-        # Check if the username already exists
         if CustomUser.objects.filter(username=username).exists():
             error = "Username already taken. Please choose another."
             region_list = regions()
-            return render(request, 'signup_form.html', {"regions": region_list, "error": error})
+            return render(request, 'signup_form.html', {
+                "regions": region_list,
+                "error": error,
+                "next": next_url,
+            })
 
         try:
             get_in = CustomUser(
@@ -97,18 +103,31 @@ def signup(request):
             user_ = authenticate(request, username=username, password=password)
             if user_ is not None:
                 login(request, user_)
+                print(user_)
+
+                # Safety check for external redirects
+                if next_url :
+                    return redirect(next_url)
                 return redirect("home")
             else:
                 return redirect("signup")
 
-        except IntegrityError as e:
+        except IntegrityError:
             error = "A user with that username or email already exists."
             region_list = regions()
-            return render(request, 'signup_form.html', {"regions": region_list, "error": error})
+            return render(request, 'signup_form.html', {
+                "regions": region_list,
+                "error": error,
+                "next": next_url,
+            })
 
     else:
         region_list = regions()
-        return render(request, 'signup_form.html', {"regions": region_list})
+        return render(request, 'signup_form.html', {
+            "regions": region_list,
+            "next": next_url,
+        })
+
 
 
 
