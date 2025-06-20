@@ -21,7 +21,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About'];
+const navItems = ['Home'];
 
 const carBrands = [
   "Toyota",
@@ -33,6 +33,7 @@ const carBrands = [
   "Chevrolet",
   "Hyundai",
   "Kia",
+  "Volkswagen",
 ];
 
 // Example car models for autosuggest
@@ -51,7 +52,7 @@ const carModels = [
 ];
 
 function DrawerAppBar(props) {
-  const { window } = props;
+  const { window_ } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   // For Brands dropdown
@@ -77,7 +78,7 @@ function DrawerAppBar(props) {
   };
 
   const handleSearchSelect = (event, value) => {
-    setSearchValue(value); // <-- update state
+    setSearchValue(value);
     if (value && value.model) {
       window.location.href = `/brands/${value.brand.toLowerCase()}/${value.model.toLowerCase().replace(/\s+/g, '-')}`;
     }
@@ -154,13 +155,30 @@ function DrawerAppBar(props) {
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = window_ !== undefined ? () => window_().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '5vh' }}>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar component="nav" position="static" elevation={1}>
         <Toolbar>
+          {/* Logo at the far left */}
+          <Button href='/'>
+          <Box
+            component="img"
+            src="/logos/logo.png"
+            alt="Auto Lights"
+            sx={{
+              display: { xs: "none", md: "block", display: 'flex', gridArea: 'logo' },
+              width: 180,
+              height:"100%",
+              ml: 0,
+              mr: 50,
+              borderRadius: 100,
+              mt:0,
+              mb:0
+            }}
+          /></Button>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -170,13 +188,7 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-           24 Auto Parts Shop
-          </Typography>
+          
           {/* Search Field with Autosuggest */}
           <Box sx={{ flexGrow: 1, mx: 2, maxWidth: 300, display: { xs: 'none', sm: 'block' } }}>
             <Autocomplete
@@ -194,7 +206,7 @@ function DrawerAppBar(props) {
               }
               clearOnBlur
               autoHighlight
-              sx={{ backgroundColor: 'white', borderRadius: 1 }}
+              sx={{ backgroundColor: 'white', borderRadius: 10000 }}
             />
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
@@ -268,9 +280,9 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </nav>
-      <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-        
+      {/* Remove extra Toolbar here to avoid extra space */}
+      <Box component="main" sx={{ flex: 1 }}>
+        {/* Content goes here */}
       </Box>
     </Box>
   );
@@ -281,7 +293,7 @@ DrawerAppBar.propTypes = {
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
    */
-  window: PropTypes.func,
+  window_: PropTypes.func,
 };
 
 export default DrawerAppBar;

@@ -1,9 +1,11 @@
 import React from "react";
 import { Box, Container, Typography, Link, Stack } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import TwitterIcon from "@mui/icons-material/X";
 
-const Footer = () => (
+const Footer = () => {
+     const thisYear = new Date().getFullYear()
+     return(
     <Box
         component="footer"
         sx={{
@@ -15,7 +17,7 @@ const Footer = () => (
     >
         <Container maxWidth="md">
             <Typography variant="body2" align="center" gutterBottom>
-                © 2023 Auto Parts Shop. All rights reserved.
+                © {thisYear} 24Auto Parts. All rights reserved.
             </Typography>
             <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
                 <Typography variant="body2">Follow us on</Typography>
@@ -29,7 +31,7 @@ const Footer = () => (
                     <FacebookIcon />
                 </Link>
                 <Link
-                    href="https://twitter.com"
+                    href="https://x.com/KobbyGilbert1"
                     color="inherit"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -40,6 +42,6 @@ const Footer = () => (
             </Stack>
         </Container>
     </Box>
-);
+)};
 
 export default Footer;

@@ -1,132 +1,213 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import Masonry from "@mui/lab/Masonry";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import {
+  Container,
+  Typography,
+  Box,
+  Grid,
+  useMediaQuery,
+  Divider,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import SectionCard from "../components/Section"
+import BrandModelsSection from "../components/BrandModels";
 
-const products = [
+// Example data for sections
+const sections = [
   {
-    id: 1,
-    name: "Headlight",
-    price: 120,
-    image: "https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=400&q=600",
+    title: "Headlights for Every Drive",
+    items: [
+      {
+        label: "Toyota",
+        image: "/brands/toyota-headlight.jpg",
+        link: "/brands/toyota/headlights",
+      },
+      {
+        label: "Honda",
+        image: "/brands/honda-headlight.jpg",
+        link: "/brands/honda/headlights",
+      },
+      {
+        label: "Benz",
+        image: "/brands/benz-headlight.jpg",
+        link: "/brands/benz/headligts",
+      },
+      {
+        label: "Hyundai",
+        image: "/brands/hyundai-headlight.jpg",
+        link: "/brands/hyundai/headlight",
+      },
+    ],
   },
   {
-    id: 2,
-    name: "Taillight",
-    price: 80,
-    image: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=600&q=80",
+    title: "Taillights Collection",
+    items: [
+      {
+        label: "Ford",
+        image: "/brands/ford-taillight.jpg",
+        link: "/brands/ford/taillight",
+      },
+      {
+        label: "BMW",
+        image: "/brands/bmw-taillight.jpg",
+        link: "/brands/bmw/taillight",
+      },{
+        label: "Honda",
+        image: "/brands/honda-taillight.jpg",
+        link: "/brands/honda/taillight",
+      },
+      {
+        label: "KAI",
+        image: "/brands/kai-taillight.jpg",
+        link: "/brands/kai/taillight",
+      },
+    ],
   },
   {
-    id: 3,
-    name: "Foglight",
-    price: 60,
-    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=300&q=80",
+    title: "Foglights for All Weather",
+    items: [
+      {
+        label: "Toyota",
+        image: "/brands/toyota-foglight.jpg",
+        link: "/brands/toyota/foglight",
+      },
+      {
+        label: "Nissan",
+        image: "/brands/nissan-foglight.jpg",
+        link: "/brands/nissan/foglight",
+      },
+    ],
   },
   {
-    id: 4,
-    name: "LED Headlight",
-    price: 150,
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    id: 5,
-    name: "Halogen Taillight",
-    price: 90,
-    image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=1200",
-  },
-  {
-    id: 6,
-    name: "Xenon Foglight",
-    price: 110,
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=500&q=80",
+    title: "Shop by Brand",
+    items: [
+      {
+        label: "Toyota",
+        image: "/logos/toyota.png",
+        link: "/brands/toyota",
+      },
+      {
+        label: "Honda",
+        image: "/logos/honda.png",
+        link: "/brands/honda",
+      },
+    ],
   },
 ];
 
-// Replace with your desired background image URL
-const backgroundImageUrl = "/bg.jpg";
+// Example data for brand models section
+const brandModels = [
+  {
+    brand: "Toyota",
+    logo: "/logos/toyota.png",
+    models: {
+      Headlight: [
+        { name: "Camry", image: "/models/toyota-camry-headlight.jpg", link: "/brands/toyota/camry/headlight" },
+        { name: "Corolla", image: "/models/toyota-corolla-headlight.jpg", link: "/brands/toyota/corolla/headlight" },
+        { name: "RAV4", image: "/models/toyota-rav4-headlight.jpg", link: "/brands/toyota/rav4/headlight" },
+      ],
+      Taillight: [
+        { name: "Camry", image: "/models/toyota-camry-taillight.jpg", link: "/brands/toyota/camry/taillight" },
+        { name: "Corolla", image: "/models/toyota-corolla-taillight.jpg", link: "/brands/toyota/corolla/taillight" },
+        { name: "RAV4", image: "/models/toyota-rav4-taillight.jpg", link: "/brands/toyota/rav4/taillight" },
+      ],
+      Foglight: [
+        { name: "Camry", image: "/models/toyota-camry-foglight.jpg", link: "/brands/toyota/camry/foglight" },
+        { name: "Corolla", image: "/models/toyota-corolla-foglight.jpg", link: "/brands/toyota/corolla/foglight" },
+        { name: "RAV4", image: "/models/toyota-rav4-foglight.jpg", link: "/brands/toyota/rav4/foglight" },
+      ],
+    },
+  },
+  {
+    brand: "Honda",
+    logo: "/logos/honda.png",
+    models: {
+      Headlight: [
+        { name: "Civic", image: "/models/honda-civic-headlight.jpg", link: "/brands/honda/civic/headlight" },
+        { name: "Accord", image: "/models/honda-accord-headlight.jpg", link: "/brands/honda/accord/headlight" },
+        { name: "CR-V", image: "/models/honda-crv-headlight.jpg", link: "/brands/honda/crv/headlight" },
+      ],
+      Taillight: [
+        { name: "Civic", image: "/models/honda-civic-taillight.jpg", link: "/brands/honda/civic/taillight" },
+        { name: "Accord", image: "/models/honda-accord-taillight.jpg", link: "/brands/honda/accord/taillight" },
+        { name: "CR-V", image: "/models/honda-crv-taillight.jpg", link: "/brands/honda/crv/taillight" },
+      ],
+      Foglight: [
+        { name: "Civic", image: "/models/honda-civic-foglight.jpg", link: "/brands/honda/civic/foglight" },
+        { name: "Accord", image: "/models/honda-accord-foglight.jpg", link: "/brands/honda/accord/foglight" },
+        { name: "CR-V", image: "/models/honda-crv-foglight.jpg", link: "/brands/honda/crv/foglight" },
+      ],
+    },
+  },
+  // Add more brands as needed
+];
 
-const Home = () => {
+function Home() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // Slider settings for mobile
+  const sliderSettings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    adaptiveHeight: true,
+  };
+
+  // Section Card
+ 
+
+  // Brand Models Section
+  
+
   return (
-    <Box
-      sx={{
-        position: "relative",
-        minHeight: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      {/* Image background */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          backgroundImage: `url(${backgroundImageUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: -1,
-          opacity: 0.89,
-        }}
-      />
-      {/* Overlay for slight darkening */}
-      <Box
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
-          bgcolor: "rgba(0,0,0,0.3)",
-          zIndex: -1,
-        }}
-      />
-      <Box sx={{ maxWidth: 1200, mx: "auto", p: 3 }}>
-        <Typography variant="h2" align="center" gutterBottom sx={{ color: "#fff", textShadow: "0 2px 8px #000" }}>
-         24 Auto Parts
-        </Typography>
-        <Masonry columns={{ xs: 1, sm: 2, md: 3 }} spacing={3}>
-          {products.map((product) => (
-            <Card
-              key={product.id}
-              sx={{
-                borderRadius: 3,
-                boxShadow: 3,
-                bgcolor: "rgba(255,255,255,0.25)",
-                backdropFilter: "blur(8px)",
-                border: "1px solid rgba(255,255,255,0.3)",
-                transition: "box-shadow 0.3s",
-                "&:hover": { boxShadow: 8 },
-              }}
-            >
-              <CardMedia
-                component="img"
-                height="200"
-                image={product.image}
-                alt={product.name}
-                sx={{ objectFit: "cover" }}
-              />
-              <CardContent>
-                <Typography variant="h6" component="div" gutterBottom>
-                  {product.name}
-                </Typography>
-                <Typography variant="body1" color="text.secondary" gutterBottom>
-                  ${product.price}
-                </Typography>
-                <Button variant="contained" color="primary" fullWidth>
-                  Add to Cart
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </Masonry>
-      </Box>
+    <Box sx={{ background: "linear-gradient(180deg,rgb(20, 113, 206) 0%, #fff 100%)", minHeight: "100vh", py: 4}}>
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mb: 4,
+            gap: 2,
+          }}
+        >
+          <Box alignItems={"center"} display="flex" flexDirection="column" sx={{ flex: 1 }}>
+            <Typography variant="h3" fontWeight="bold" sx={{ color: "#222" }}>
+              Auto Lighting Essentials
+            </Typography>
+            <Typography variant="h6" sx={{ color: "#444" }}>
+              Headlights, Taillights & Foglights for Every Car
+            </Typography>
+          </Box>
+          
+        </Box>
+        {isMobile ? (
+          <Slider {...sliderSettings}>
+            {sections.map((section, idx) => (
+              <Box key={idx} px={1}>
+                <SectionCard section={section} />
+              </Box>
+            ))}
+          </Slider>
+        ) : (
+          <Grid container spacing={3} alignItems={"center"} display="flex" ml={"6%"}  sx={{ flex: 2 }}>
+            {sections.map((section, idx) => (
+              <Grid item xs={12} sm={6} md={3} key={idx}>
+                <SectionCard section={section} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+        <Divider sx={{ my: 6 }} />
+        <BrandModelsSection brandModels={brandModels}/>
+      </Container>
     </Box>
   );
-};
+}
 
 export default Home;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Paper, Stepper, Step, StepLabel } from "@mui/material";
 
+const users = [{username:"kobby24",password:"password"}]
 const steps = ["Enter Username", "Enter Password"];
 
 function Login() {
@@ -16,9 +17,10 @@ function Login() {
     if (activeStep < steps.length - 1) {
       setActiveStep((prev) => prev + 1);
     } else {
+          
       // Submit logic here
       // For now, just log the form data
-      console.log(form);
+      // console.log(users.find((user)=>{user.password===form.password && user.username===form.username}));
     }
   };
 

@@ -19,7 +19,7 @@ import {
   StepLabel,
 } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import TwitterIcon from "@mui/icons-material/X";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 const regions = [
@@ -101,6 +101,7 @@ const SignupForm = () => {
     e.preventDefault();
     if (validateStep()) {
       // Submit logic here
+      
     }
   };
 
@@ -201,7 +202,7 @@ const SignupForm = () => {
             {activeStep === 2 && (
               <>
                 <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth required error={!!errors.region}>
+                  <FormControl  required error={!!errors.region}>
                     <InputLabel>Region</InputLabel>
                     <Select
                       name="region"
