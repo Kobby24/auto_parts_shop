@@ -1,4 +1,3 @@
-// In Main.js (or wherever your Main component is defined)
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -8,13 +7,13 @@ import {
   Grid,
   useMediaQuery,
   Divider,
+  CardContent,
+  CardMedia,
+  Button,
 } from "@mui/material";
-import {
-    CardContent,
-    CardMedia,
-    Button,
-} from "@mui/material";
-import Masonry from "@mui/lab/Masonry";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const sections = [
   
@@ -135,126 +134,207 @@ const sections = [
     
 ];
 function Main() {
-  const { brandName,modelName } = useParams();
-  const section = sections.filter((s)=>s.label.toLocaleLowerCase()===brandName.toLocaleLowerCase()?s:null)
-  // brandName will match the :brandName in your route
+  const { brandName, modelName } = useParams();
+  const section = sections.filter(
+    (s) => s.label.toLocaleLowerCase() === brandName.toLocaleLowerCase()
+  );
+
+  // Carousel images for the brand
+  const carouselImages = section.slice(0, 3).map((item) => ({
+    image: item.image,
+    alt: item.productName,
+  }));
+
+  const sliderSettings = {
+    dots: true,
+    infinite: carouselImages.length > 1,
+    speed: 600,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 3500,
+  };
 
   return (
-        <Box sx={{ background: "linear-gradient(180deg,rgb(20, 113, 206) 0%, #fff 100%)", minHeight: "100vh", py: 4}}>
-          <Container maxWidth="lg">
-            <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        mb: 4,
-                        gap: 2,
-                      }}
-                    >
-                      <Box alignItems={"center"} display="flex" flexDirection="column" sx={{ flex: 1 }}>
-                        <Typography variant="h3" fontWeight="bold" sx={{ color: "#222" }}>
-                          {brandName.toLocaleUpperCase()} Lighting Essentials
-                        </Typography>
-                        <Typography variant="h6" sx={{ color: "#444" }}>
-                          Headlights, Taillights & Foglights for Every {brandName.toLocaleUpperCase()} Car
-                        </Typography>
-                      </Box>
-                      
-                    </Box>
-            
-            <CardContent>
-            
-            <Grid container spacing={2} ml={3}>
-                {section.map((item) => (
-                  <Card
-        alignItems={"center"} display="flex" flexDirection="row" 
-        sx={{
-            minHeight: 200,
-            borderRadius: 3,
-            
-            maxWidth:350,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-            background: "transparent",
-            backdropFilter: "blur(10px)",
-           
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-            border: "0px solid rgba(8, 85, 162, 0.03)",
-            
-            
-        }}
+    <Box
+      sx={{
+        background: "linear-gradient(180deg,rgb(20, 113, 206) 0%, #fff 100%)",
+        minHeight: "100vh",
+        py: 4,
+      }}
     >
-                    <Button
-                        key={item.label}
-                        href={item.viewLink}
-                        sx={{
-                            textTransform: "none",
-                            width: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            p: 0,
-                            mb:1,
-                            background: "transparent"
-                        }}
-                    >
-                        <CardMedia
-                            component="img"
-                            image={item.image}
-                            alt={item.label}
-                            sx={{
-                                width: 350,
-                                height: 230,
-                                objectFit: "cover",
-                                borderRadius: 3,
-                                mb: 1,
-                                background: "transparent"
-                            }}
-                            
-                        />
-                        
-                        
-                    </Button>
-                            <Typography mt={0} mb={1} fontSize={"bold"}>{item.productName} - ${item.price}</Typography>
-                            <Card alignItems={"center"} 
-                            flexDirection="column" 
-                            sx={{
-                            minWidth: 120,
-                            maxWidth:360,
-                            display: "flex",
-                            alignItems: "center",
-                            textTransform: "none",
-                           
-                            p: 0,
-                            flex: 1,
-                            background: "transparent",
-                          }}>
-                              <Button 
-                              sx={{
-                                background: "rgba(8, 85, 162, 0.94)", 
-                                mr:2, 
-                                ml:3, 
-                                mb:2}} >
-                                <Typography color="white" fontSize={"bold"}>Add to Cart</Typography></Button>
-                              <Button href={item.purchaseLink+item.id.toString()}
-                              sx=
+      <Container maxWidth="lg">
+        {/* --- Carousel with overlayed text --- */}
+        <Box sx={{ mb: 5, position: "relative" }}>
+          <Slider {...sliderSettings}>
+            {carouselImages.map((img, idx) => (
+              <Box
+                key={idx}
+                sx={{
+                  position: "relative",
+                  height: { xs: 220, sm: 320, md: 380 },
+                  borderRadius: 3,
+                  overflow: "hidden",
+                }}
+              >
+                <img
+                  src={img.image}
+                  alt={img.alt}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "brightness(0.7)",
+                  }}
+                />
+                {/* Overlayed text */}
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#fff",
+                    textShadow: "0 2px 8px rgba(0,0,0,0.5)",
+                    px: 2,
+                  }}
+                >
+                  <Typography
+                    variant="h3"
+                    fontWeight="bold"
+                    sx={{
+                      fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+                      mb: 2,
+                      letterSpacing: 1,
+                    }}
+                  >
+                    Lighting Essentials
+                  </Typography>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontSize: { xs: "1.1rem", sm: "1.3rem", md: "1.5rem" },
+                      fontWeight: 400,
+                      letterSpacing: 1,
+                      background: "rgba(0,0,0,0.35)",
+                      borderRadius: 2,
+                      px: 2,
+                      py: 1,
+                    }}
+                  >
+                    Headlights, Taillights & Foglights for Every {brandName.toLocaleUpperCase()} Car
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
+        {/* --- End Carousel --- */}
 
-                              {{background:"rgba(1, 34, 67, 0.94)", ml:3,mb:2}}>
-                              <Typography color="white" 
-                              fontSize={"bold"} 
-                              >
-                              Order Now</Typography></Button>
-
-                            </Card>
-                    </Card>
-                ))}
-                </Grid>
-            
+        <CardContent>
+          <Grid container spacing={2} ml={3}>
+            {section.map((item) => (
+              <Card
+                key={item.id}
+                alignItems={"center"}
+                display="flex"
+                flexDirection="row"
+                sx={{
+                  minHeight: 200,
+                  borderRadius: 3,
+                  maxWidth: 350,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  background: "transparent",
+                  backdropFilter: "blur(10px)",
+                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                  border: "0px solid rgba(8, 85, 162, 0.03)",
+                }}
+              >
+                <Button
+                  href={item.viewLink}
+                  sx={{
+                    textTransform: "none",
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    p: 0,
+                    mb: 1,
+                    background: "transparent",
+                  }}
+                >
+                  <CardMedia
+                    component="img"
+                    image={item.image}
+                    alt={item.label}
+                    sx={{
+                      width: 350,
+                      height: 230,
+                      objectFit: "cover",
+                      borderRadius: 3,
+                      mb: 1,
+                      background: "transparent",
+                    }}
+                  />
+                </Button>
+                <Typography mt={0} mb={1} fontSize={"bold"}>
+                  {item.productName} - ${item.price}
+                </Typography>
+                <Card
+                  alignItems={"center"}
+                  flexDirection="column"
+                  sx={{
+                    minWidth: 120,
+                    maxWidth: 360,
+                    display: "flex",
+                    alignItems: "center",
+                    textTransform: "none",
+                    p: 0,
+                    flex: 1,
+                    background: "transparent",
+                  }}
+                >
+                  <Button
+                    sx={{
+                      background: "rgba(8, 85, 162, 0.94)",
+                      mr: 2,
+                      ml: 3,
+                      mb: 2,
+                    }}
+                  >
+                    <Typography color="white" fontSize={"bold"}>
+                      Add to Cart
+                    </Typography>
+                  </Button>
+                  <Button
+                    href={item.purchaseLink + item.id.toString()}
+                    sx={{
+                      background: "rgba(1, 34, 67, 0.94)",
+                      ml: 3,
+                      mb: 2,
+                    }}
+                  >
+                    <Typography color="white" fontSize={"bold"}>
+                      Order Now
+                    </Typography>
+                  </Button>
+                </Card>
+              </Card>
+            ))}
+          </Grid>
         </CardContent>
 
-          </Container>
+      </Container>
 
-        </Box>
+    </Box>
   );
 }
 
