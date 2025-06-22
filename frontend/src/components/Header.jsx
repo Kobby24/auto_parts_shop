@@ -19,6 +19,9 @@ import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Badge from "@mui/material/Badge";
+import CartSidebar from "./cart"; // Adjust path if needed
 
 const drawerWidth = 240;
 const navItems = ['Home'];
@@ -52,7 +55,8 @@ const carModels = [
 ];
 
 function DrawerAppBar(props) {
-  const { window_ } = props;
+  // Remove local cart state, use props instead
+  const { cartItems, setCartItems, window_ } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   // For Brands dropdown
@@ -157,6 +161,18 @@ function DrawerAppBar(props) {
 
   const container = window_ !== undefined ? () => window_().document.body : undefined;
 
+  // Calculate total quantity in cart
+  const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
+
+  // State for cart sidebar open/close
+  const [cartOpen, setCartOpen] = React.useState(false);
+
+  // Function to open the cart sidebar
+  const handleCartOpen = () => setCartOpen(true);
+
+  // Function to close the cart sidebar
+  const handleCartClose = () => setCartOpen(false);
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '5vh' }}>
       <CssBaseline />
@@ -260,6 +276,12 @@ function DrawerAppBar(props) {
                 Logout
               </Button>
             )}
+            {/* Cart Icon */}
+            <IconButton color="inherit" onClick={handleCartOpen}>
+              <Badge badgeContent={cartCount} color="primary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
@@ -284,6 +306,12 @@ function DrawerAppBar(props) {
       <Box component="main" sx={{ flex: 1 }}>
         {/* Content goes here */}
       </Box>
+      <CartSidebar
+        items={cartItems}
+        open={cartOpen}
+        onClose={handleCartClose}
+        onDeleteItem={setCartItems} // <-- Add this line
+      />
     </Box>
   );
 }
