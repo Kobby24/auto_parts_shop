@@ -7,13 +7,26 @@ import AboutUs from './pages/AboutUs'
 import Main from './pages/Main';
 import SignupForm from './pages/SignupForm';
 import  Login  from './pages/Login';
-import Product from './pages/Product';
 import Payment from './pages/Payment';
+import Error404 from './pages/error';
+import React, { useState, useEffect } from "react";
+import Product from './pages/Product';
+
 function App() {
+  const [cartItems, setCartItems] = useState(() => {
+    const stored = localStorage.getItem("cartItems");
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // Keep localStorage in sync
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+        <Header cartItems={cartItems} setCartItems={setCartItems} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutUs />} />
@@ -21,18 +34,18 @@ function App() {
           <Route path="/signup" element={<SignupForm />} />
           <Route
             path="/brands/:brandName/:modelName?"
-            element={<Main />}
+            element={<Main cartItems={cartItems} setCartItems={setCartItems} />}
           />
+          
+          <Route path='/payment' element={<Payment />}/>
           <Route
-            path="/product/:brandName/:modelName/:prod"
-            element={<Product />}
+            path="/product/:brandName/:modelName/:prod_id"
+            element={<Product  cartItems={cartItems} setCartItems={setCartItems} />}
           />
-          <Route path='/purchase/:id' element={<Payment />}/>
-          <Route
-            path="/brands/:brandName/:modelName/:prod"
-            element={<Product />}
-          />
-          {/* Add more routes here as needed */}
+          {/* Add more routes here as need
+          ed */}
+          <Route path="*" element={<Error404 />} />
+
         </Routes>
       </div>
       <Footer />
