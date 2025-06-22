@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -5,8 +6,6 @@ import {
   Box,
   Card,
   Grid,
-  useMediaQuery,
-  Divider,
   CardContent,
   CardMedia,
   Button,
@@ -14,126 +13,156 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import OrderNow from "./OrdeNow";
+import CartSidebar from "../components/cart"; // <-- Import CartSidebar
 
 const sections = [
-  
-    
-      {id:1,
-        label: "Toyota",
-        productName:"2020 corolla headlight",
-        image: "/brands/toyota-headlight.jpg",
-        viewLink: "/product/toyota/headlights",
-        purchaseLink:`/purchase/`,
-        price:30
-      },
-      {
-        id:2,
-        label: "Honda",
-        productName:"2020 civi headlight",
-        image: "/brands/honda-headlight.jpg",
-        viewLink: "/product/honda/headlights",
-        purchaseLink:`/purchase/`,
-        price:34
-      },
-      {
-        id:3,
-        label: "Benz",
-        productName:"2020 Benz headlight",
-        image: "/brands/benz-headlight.jpg",
-        viewLink: "/product/benz/headlights",
-        purchaseLink:`/purchase/`,
-        price:70
-      },
-      {
-        id:4,
-        label: "Hyundai",
-        productName:"2020 Hyundai headlight",
-        image: "/brands/hyundai-headlight.jpg",
-        viewLink: "/product/hyundai/headlights",
-        purchaseLink:`/purchase/`,
-        price:31
-      },
-    
-  
-      {
-        id:5,
-        label: "Ford",
-        productName:"2020 Ford headlight",
-        image: "/brands/ford-taillight.jpg",
-
-        viewLink: "/product/ford/taillights",
-        purchaseLink:`/purchase/`,
-        price:25
-      },
-      {
-        id:6,
-        label: "BMW",
-        productName:"2020 Ford headlight",
-        image: "/brands/bmw-taillight.jpg",
-        viewLink: "/product/bmw/taillights",
-        purchaseLink:`/purchase/`,
-        price:38
-      },{
-        id:7,
-        label: "Honda",
-        productName:"2020 Honda headlight",
-        image: "/brands/honda-taillight.jpg",
-        viewLink: "/product/honda/taillights",
-        purchaseLink:`/purchase/`,
-        price:33
-      },
-      {
-        id:8,
-        label: "KAI",
-        productName:"2020 KAI headlight",
-        image: "/brands/kai-taillight.jpg",
-        viewLink: "/product/toyota/taillights",
-        purchaseLink:`/purchase/`,
-        price:38
-      },
-   
-    
-      {
-        id:9,
-        label: "Toyota",
-        productName:"2020 Toyota headlight",
-        image: "/brands/toyota-foglight.jpg",
-        viewLink: "/product/toyota/foglights",
-        purchaseLink:`/purchase/`,
-        price:12
-      },
-      {
-        id:10,
-        label: "Nissan",
-        productName:"2020 Nissan headlight",
-        image: "/brands/nissan-foglight.jpg",
-        viewLink: "/product/toyota/foglights",
-        purchaseLink:`/purchase/`,
-        price:15
-      },
-   
-  
-      {
-        id:11,
-        label: "Toyota",
-        productName:"2020 Toyota headlight",
-        image: "/logos/toyota.png",
-        viewLink: "/product/toyota/headlights",
-        purchaseLink:`/purchase/`,
-        price:30
-      },
-      {
-        id:12,
-        label: "Honda",
-        productName:"2020 Honda headlight",
-        image: "/logos/honda.png",
-        viewLink: "/product/toyota/headlights",
-        purchaseLink:`/purchase/`,
-        price:30
-      },
-    
+  {
+    id: 1,
+    label: "Toyota",
+    productName: "2020 1 corolla headlight",
+    image: "/brands/toyota-headlight.jpg",
+    viewLink: "/product/toyota/headlights/1",
+    purchaseLink: `/purchase/`,
+    price: 30,
+    pairAvalible: true,
+    leftAvalible: true,
+    rightAvaible: true,
+  },
+  {
+    id: 2,
+    label: "Honda",
+    productName: "2020 vivi headlight",
+    image: "/brands/honda-headlight.jpg",
+    viewLink: "/product/honda/headlights/2",
+    purchaseLink: `/purchase/`,
+    price: 34,
+    pairAvalible: true,
+    leftAvalible: true,
+    rightAvaible: false,
+  },
+  {
+    id: 3,
+    label: "Benz",
+    productName: "2020 Benz headlight",
+    image: "/brands/benz-headlight.jpg",
+    viewLink: "/product/benz/headlights/3",
+    purchaseLink: `/purchase/`,
+    price: 70,
+    pairAvalible: false,
+    leftAvalible: true,
+    rightAvaible: true,
+  },
+  {
+    id: 4,
+    label: "Hyundai",
+    productName: "2020 Hyundai headlight",
+    image: "/brands/hyundai-headlight.jpg",
+    viewLink: "/product/hyundai/headlights/4",
+    purchaseLink: `/purchase/`,
+    price: 31,
+    pairAvalible: true,
+    leftAvalible: false,
+    rightAvaible: true,
+  },
+  {
+    id: 5,
+    label: "Ford",
+    productName: "2020 Ford headlight",
+    image: "/brands/ford-taillight.jpg",
+    viewLink: "/product/ford/taillights/5",
+    purchaseLink: `/purchase/`,
+    price: 25,
+    pairAvalible: false,
+    leftAvalible: true,
+    rightAvaible: false,
+  },
+  {
+    id: 6,
+    label: "BMW",
+    productName: "2020 Ford headlight",
+    image: "/brands/bmw-taillight.jpg",
+    viewLink: "/product/bmw/taillights/6",
+    purchaseLink: `/purchase/`,
+    price: 38,
+    pairAvalible: true,
+    leftAvalible: true,
+    rightAvaible: true,
+  },
+  {
+    id: 7,
+    label: "Honda",
+    productName: "2020 Honda headlight",
+    image: "/brands/honda-taillight.jpg",
+    viewLink: "/product/honda/taillights/7",
+    purchaseLink: `/purchase/`,
+    price: 33,
+    pairAvalible: false,
+    leftAvalible: false,
+    rightAvaible: true,
+  },
+  {
+    id: 8,
+    label: "KAI",
+    productName: "2020 KAI headlight",
+    image: "/brands/kai-taillight.jpg",
+    viewLink: "/product/toyota/taillights/8",
+    purchaseLink: `/purchase/`,
+    price: 38,
+    pairAvalible: true,
+    leftAvalible: true,
+    rightAvaible: false,
+  },
+  {
+    id: 9,
+    label: "Toyota",
+    productName: "2020 Toyota headlight",
+    image: "/brands/toyota-foglight.jpg",
+    viewLink: "/product/toyota/foglights/9",
+    purchaseLink: `/purchase/`,
+    price: 12,
+    pairAvalible: false,
+    leftAvalible: true,
+    rightAvaible: true,
+  },
+  {
+    id: 10,
+    label: "Nissan",
+    productName: "2020 Nissan headlight",
+    image: "/brands/nissan-foglight.jpg",
+    viewLink: "/product/toyota/foglights/10",
+    purchaseLink: `/purchase/`,
+    price: 15,
+    pairAvalible: true,
+    leftAvalible: false,
+    rightAvaible: true,
+  },
+  {
+    id: 11,
+    label: "Toyota",
+    productName: "2020 Toyota headlight",
+    image: "/logos/toyota.png",
+    viewLink: "/product/toyota/headlights/11",
+    purchaseLink: `/purchase/`,
+    price: 30,
+    pairAvalible: true,
+    leftAvalible: true,
+    rightAvaible: true,
+  },
+  {
+    id: 12,
+    label: "Honda",
+    productName: "2020 Honda headlight",
+    image: "/logos/honda.png",
+    viewLink: "/product/toyota/headlights/12",
+    purchaseLink: `/purchase/`,
+    price: 30,
+    pairAvalible: true,
+    leftAvalible: true,
+    rightAvaible: true,
+  },
 ];
-function Main() {
+function Main({ cartItems, setCartItems }) {
   const { brandName, modelName } = useParams();
   const section = sections.filter(
     (s) => s.label.toLocaleLowerCase() === brandName.toLocaleLowerCase()
@@ -155,6 +184,64 @@ function Main() {
     autoplay: true,
     autoplaySpeed: 3500,
   };
+
+  // State for OrderNow popup
+  const [orderOpen, setOrderOpen] = useState(false);
+  const [orderItem, setOrderItem] = useState(null);
+
+  // Save cart items to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  // Show cart sidebar if at least one item in cart
+  const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
+
+  const handleOrderClick = (item) => {
+    setOrderItem({
+      name: item.productName,
+      amount: item.price,
+      pairAvalible: item.pairAvalible,
+      leftAvalible: item.leftAvalible,
+      rightAvaible: item.rightAvaible,
+    });
+    setOrderOpen(true);
+  };
+
+  const handleOrderClose = () => {
+    setOrderOpen(false);
+    setOrderItem(null);
+  };
+
+  // Add to Cart handler
+  const handleAddToCart = (item) => {
+    setCartItems((prev) => {
+      // If item already in cart, increase qty
+      const existing = prev.find((i) => i.id === item.id);
+      if (existing) {
+        return prev.map((i) =>
+          i.id === item.id ? { ...i, qty: i.qty + 1 } : i
+        );
+      }
+      // Else add new item
+      return [
+        ...prev,
+        {
+          id: item.id,
+          name: item.productName,
+          price: item.price,
+          qty: 1,
+          pairAvalible: item.pairAvalible,
+          leftAvalible: item.leftAvalible,
+          rightAvaible: item.rightAvaible,
+        },
+      ];
+    });
+    setCartSidebarOpen(true);
+  };
+
+  // Close cart sidebar handler
+  const handleCartSidebarClose = () => setCartSidebarOpen(false);
 
   return (
     <Box
@@ -228,7 +315,8 @@ function Main() {
                       py: 1,
                     }}
                   >
-                    Headlights, Taillights & Foglights for Every {brandName.toLocaleUpperCase()} Car
+                    Headlights, Taillights & Foglights for Every{" "}
+                    {brandName.toLocaleUpperCase()} Car
                   </Typography>
                 </Box>
               </Box>
@@ -309,13 +397,14 @@ function Main() {
                       ml: 3,
                       mb: 2,
                     }}
+                    onClick={() => handleAddToCart(item)}
                   >
                     <Typography color="white" fontSize={"bold"}>
                       Add to Cart
                     </Typography>
                   </Button>
                   <Button
-                    href={item.purchaseLink + item.id.toString()}
+                    onClick={() => handleOrderClick(item)}
                     sx={{
                       background: "rgba(1, 34, 67, 0.94)",
                       ml: 3,
@@ -332,8 +421,16 @@ function Main() {
           </Grid>
         </CardContent>
 
-      </Container>
+        {/* OrderNow popup */}
+        <OrderNow open={orderOpen} onClose={handleOrderClose} item={orderItem} />
 
+        {/* Cart Sidebar */}
+        <CartSidebar
+          items={cartItems}
+          open={cartSidebarOpen}
+          onClose={handleCartSidebarClose}
+        />
+      </Container>
     </Box>
   );
 }
