@@ -47,17 +47,18 @@ function CartSidebar({ items = [], open = false, onClose, onDeleteItem }) {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          background: "linear-gradient(180deg,rgba(20, 113, 206, 0.86) 0%, #fff 100%)", // Added gradient background
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-          <ShoppingCartIcon sx={{ mr: 1, color: "primary.main" }} />
+          <ShoppingCartIcon sx={{ mr: 1, color: "white" }} />
           <Typography variant="h6" fontWeight="bold" flex={1}>
             Your Cart
           </Typography>
           <Button
             onClick={onClose}
             size="small"
-            sx={{ minWidth: 0, color: "grey.700" }}
+            sx={{ minWidth: 0, color: "white" }}
           >
             Close
           </Button>
