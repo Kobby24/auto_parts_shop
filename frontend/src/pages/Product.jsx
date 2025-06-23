@@ -341,7 +341,15 @@ const Sections = ({ cartItems, setCartItems }) => {
           <Typography variant="h6" color="primary" sx={{ mb: 2 }}>
             GHS {mainItem.price}
           </Typography>
-          <Box sx={{ display: "flex", gap: 2,ml:15 }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              ml: { xs: 0, sm: 15 }, // Remove left margin on mobile, keep on desktop
+              justifyContent: { xs: "center", sm: "flex-start" }, // Center on mobile
+              width: "100%",
+            }}
+          >
             <Button
               variant="contained"
               color="primary"
@@ -352,7 +360,7 @@ const Sections = ({ cartItems, setCartItems }) => {
             </Button>
             <Button
               variant="outlined"
-              color="secondary"
+              color="rgba(1, 34, 67, 0.94)"
               onClick={() => setOrderNowOpen(true)}
               sx={{ fontWeight: "bold", px: 3 }}
             >
