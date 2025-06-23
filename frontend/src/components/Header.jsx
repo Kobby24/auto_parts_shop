@@ -108,11 +108,49 @@ function DrawerAppBar(props) {
     setIsLoggedIn(false);
   };
 
+  // Calculate total quantity in cart
+  const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
+
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+    <Box
+      onClick={handleDrawerToggle}
+      sx={{
+        textAlign: 'center',
+        background: "linear-gradient(180deg,rgba(20, 113, 206, 0.86) 0%, #fff 100%)", // Add gradient background
+        height: "100%", // Ensure background covers full drawer
+      }}
+    >
       <Typography variant="h6" sx={{ my: 2 }}>
         24 Auto Parts
       </Typography>
+      {/* Mobile Search Field */}
+      <Box sx={{ display: { xs: 'block', sm: 'none' }, px: 2, mb: 2 }}>
+        <Autocomplete
+          options={carModels}
+          getOptionLabel={(option) => option ? `${option.brand} ${option.model}` : ''}
+          value={searchValue}
+          inputValue={inputValue}
+          onInputChange={handleInputChange}
+          onChange={handleSearchSelect}
+          renderInput={(params) => (
+            <TextField {...params} label="Search car model" variant="outlined" size="small" />
+          )}
+          isOptionEqualToValue={(option, value) =>
+            option.brand === value.brand && option.model === value.model
+          }
+          clearOnBlur
+          autoHighlight
+          sx={{ backgroundColor: 'white', borderRadius: 10000 }}
+        />
+      </Box>
+      {/* Mobile Cart Icon */}
+      <Box sx={{ display: { xs: 'flex', sm: 'none' }, justifyContent: 'center', mb: 2 }}>
+        <IconButton color="inherit" onClick={(e) => { e.stopPropagation(); handleCartOpen(); }}>
+          <Badge badgeContent={cartCount} color="primary">
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
+      </Box>
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -161,9 +199,6 @@ function DrawerAppBar(props) {
 
   const container = window_ !== undefined ? () => window_().document.body : undefined;
 
-  // Calculate total quantity in cart
-  const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
-
   // State for cart sidebar open/close
   const [cartOpen, setCartOpen] = React.useState(false);
 
@@ -178,34 +213,64 @@ function DrawerAppBar(props) {
       <CssBaseline />
       <AppBar component="nav" position="static" elevation={1}>
         <Toolbar>
-          {/* Logo at the far left */}
-          <Button href='/'>
-          <Box
-            component="img"
-            src="/logos/logo.png"
-            alt="Auto Lights"
-            sx={{
-              display: { xs: "none", md: "block", display: 'flex', gridArea: 'logo' },
-              width: 180,
-              height:"100%",
-              ml: 0,
-              mr: 50,
-              borderRadius: 100,
-              mt:0,
-              mb:0
-            }}
-          /></Button>
+          {/* Hamburger icon at far left on mobile */}
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ display: { xs: 'flex', sm: 'none' }, mr: 1 }}
           >
             <MenuIcon />
           </IconButton>
-          
-          {/* Search Field with Autosuggest */}
+          {/* Mobile Search Field (centered between hamburger and cart) */}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' }, mx: 1 }}>
+            <Autocomplete
+              options={carModels}
+              getOptionLabel={(option) => option ? `${option.brand} ${option.model}` : ''}
+              value={searchValue}
+              inputValue={inputValue}
+              onInputChange={handleInputChange}
+              onChange={handleSearchSelect}
+              renderInput={(params) => (
+                <TextField {...params} label="Search" variant="outlined" size="small" />
+              )}
+              isOptionEqualToValue={(option, value) =>
+                option.brand === value.brand && option.model === value.model
+              }
+              clearOnBlur
+              autoHighlight
+              sx={{
+                backgroundColor: 'white',
+                borderRadius: 10000,
+                width: '100%',
+                minWidth: 0,
+              }}
+            />
+          </Box>
+          {/* Cart Icon for mobile (far right) */}
+          <Box sx={{ display: { xs: 'flex', sm: 'none' }, ml: 1 }}>
+            <IconButton color="inherit" onClick={handleCartOpen}>
+              <Badge badgeContent={cartCount} color="primary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+          </Box>
+          {/* Logo and desktop content */}
+          <Button href='/' sx={{ minWidth: 0, p: 0, display: { xs: 'none', sm: 'block' } }}>
+          <Box
+            component="img"
+            src="/logos/logo.png"
+            alt="Auto Lights"
+            sx={{
+              width: 180,
+              height: "100%",
+              borderRadius: 100,
+              mt: 0,
+              mb: 0,
+            }}
+          /></Button>
+          {/* Desktop Search Field */}
           <Box sx={{ flexGrow: 1, mx: 2, maxWidth: 300, display: { xs: 'none', sm: 'block' } }}>
             <Autocomplete
               options={carModels}
@@ -225,6 +290,7 @@ function DrawerAppBar(props) {
               sx={{ backgroundColor: 'white', borderRadius: 10000 }}
             />
           </Box>
+          {/* Desktop Nav and Cart */}
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
             {navItems.map((item) => (
               <Button
