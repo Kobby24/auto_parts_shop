@@ -11,11 +11,13 @@ import { Box } from "@mui/material";
 
 const SectionCard = ({ section }) => (
     <Card
-        alignItems={"center"} display="flex" flexDirection="column" 
+        alignItems={"center"}
+        display="flex"
+        flexDirection="column"
         sx={{
             minHeight: 200,
-            minWidth:500,
-            maxWidth:500,
+            width: { xs: '100%', sm: 500 }, // Full width on mobile, fixed on desktop
+            maxWidth: 500,
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -23,11 +25,10 @@ const SectionCard = ({ section }) => (
             backdropFilter: "blur(10px)",
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
             border: "1px solid rgba(255, 255, 255, 0.3)",
-            
-            
+            mx: { xs: 0, sm: "auto" }, // Remove horizontal margin on mobile, center on desktop
         }}
     >
-        <CardContent>
+        <CardContent sx={{ p: { xs: 1, sm: 2 } }}>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
                 {section.title}
             </Typography>
@@ -51,7 +52,7 @@ const SectionCard = ({ section }) => (
                             alt={item.label}
                             sx={{
                                 width: "100%",
-                                height: 130,
+                                height: { xs: 90, sm: 130 }, // Smaller image on mobile
                                 objectFit: "cover",
                                 borderRadius: 3,
                                 mb: 1,
