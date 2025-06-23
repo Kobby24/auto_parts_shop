@@ -174,13 +174,16 @@ function Main({ cartItems, setCartItems }) {
     alt: item.productName,
   }));
 
+  // Responsive: remove arrows on mobile
+  const isMobile = window.innerWidth < 600;
+
   const sliderSettings = {
     dots: true,
     infinite: carouselImages.length > 1,
     speed: 600,
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true,
+    arrows: !isMobile, // Hide arrows on mobile
     autoplay: true,
     autoplaySpeed: 3500,
   };
@@ -326,97 +329,118 @@ function Main({ cartItems, setCartItems }) {
         {/* --- End Carousel --- */}
 
         <CardContent>
-          <Grid container spacing={2} ml={3}>
+          <Grid
+            container
+            spacing={2}
+            ml={{ xs: 0, sm: 3 }}
+            justifyContent="center"
+          >
             {section.map((item) => (
-              <Card
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
                 key={item.id}
-                alignItems={"center"}
-                display="flex"
-                flexDirection="row"
                 sx={{
-                  minHeight: 200,
-                  borderRadius: 3,
-                  maxWidth: 350,
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  background: "transparent",
-                  backdropFilter: "blur(10px)",
-                  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                  border: "0px solid rgba(8, 85, 162, 0.03)",
+                  justifyContent: "center",
                 }}
               >
-                <Button
-                  href={item.viewLink}
+                <Card
+                  alignItems={"center"}
+                  display="flex"
+                  flexDirection="row"
                   sx={{
-                    textTransform: "none",
-                    width: "100%",
+                    minHeight: 200,
+                    borderRadius: 3,
+                    width: { xs: "100%", sm: 350 },
+                    maxWidth: 400,
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
-                    p: 0,
-                    mb: 1,
+                    justifyContent: "space-between",
                     background: "transparent",
+                    backdropFilter: "blur(10px)",
+                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                    border: "0px solid rgba(8, 85, 162, 0.03)",
+                    m: { xs: 0, sm: 1 },
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    image={item.image}
-                    alt={item.label}
+                  <Button
+                    href={item.viewLink}
                     sx={{
-                      width: 350,
-                      height: 230,
-                      objectFit: "cover",
-                      borderRadius: 3,
+                      textTransform: "none",
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      p: 0,
                       mb: 1,
                       background: "transparent",
                     }}
-                  />
-                </Button>
-                <Typography mt={0} mb={1} fontSize={"bold"}>
-                  {item.productName} - ${item.price}
-                </Typography>
-                <Card
-                  alignItems={"center"}
-                  flexDirection="column"
-                  sx={{
-                    minWidth: 120,
-                    maxWidth: 360,
-                    display: "flex",
-                    alignItems: "center",
-                    textTransform: "none",
-                    p: 0,
-                    flex: 1,
-                    background: "transparent",
-                  }}
-                >
-                  <Button
-                    sx={{
-                      background: "rgba(8, 85, 162, 0.94)",
-                      mr: 2,
-                      ml: 3,
-                      mb: 2,
-                    }}
-                    onClick={() => handleAddToCart(item)}
                   >
-                    <Typography color="white" fontSize={"bold"}>
-                      Add to Cart
-                    </Typography>
+                    <CardMedia
+                      component="img"
+                      image={item.image}
+                      alt={item.label}
+                      sx={{
+                        width: "100%",
+                        maxWidth: 350,
+                        height: { xs: 160, sm: 230 },
+                        objectFit: "cover",
+                        borderRadius: 3,
+                        mb: 1,
+                        background: "transparent",
+                      }}
+                    />
                   </Button>
-                  <Button
-                    onClick={() => handleOrderClick(item)}
+                  <Typography mt={0} mb={1} fontWeight="bold" fontSize={{ xs: "1rem", sm: "1.1rem" }}>
+                    {item.productName} - ${item.price}
+                  </Typography>
+                  <Card
+                    alignItems={"center"}
+                    flexDirection="column"
                     sx={{
-                      background: "rgba(1, 34, 67, 0.94)",
-                      ml: 3,
-                      mb: 2,
+                      minWidth: 120,
+                      maxWidth: 360,
+                      display: "flex",
+                      alignItems: "center",
+                      textTransform: "none",
+                      p: 0,
+                      flex: 1,
+                      background: "transparent",
                     }}
                   >
-                    <Typography color="white" fontSize={"bold"}>
-                      Order Now
-                    </Typography>
-                  </Button>
+                    <Button
+                      sx={{
+                        background: "rgba(8, 85, 162, 0.94)",
+                        mr: { xs: 0, sm: 20 },
+                        ml: { xs: 0, sm: 3 },
+                        mb: 2,
+                        width: { xs: "90%", sm: "20%" },
+                      }}
+                      onClick={() => handleAddToCart(item)}
+                    >
+                      <Typography color="white" fontWeight="bold">
+                        Add to Cart
+                      </Typography>
+                    </Button>
+                    <Button
+                      onClick={() => handleOrderClick(item)}
+                      sx={{
+                        background: "rgba(1, 34, 67, 0.94)",
+                        ml: { xs: 0, sm: 3 },
+                        mb: 2,
+                        width: { xs: "90%", sm: "80%" },
+                      }}
+                    >
+                      <Typography color="white" fontWeight="bold">
+                        Order Now
+                      </Typography>
+                    </Button>
+                  </Card>
                 </Card>
-              </Card>
+              </Grid>
             ))}
           </Grid>
         </CardContent>
