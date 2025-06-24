@@ -271,7 +271,7 @@ function DrawerAppBar(props) {
             }}
           /></Button>
           {/* Desktop Search Field */}
-          <Box sx={{ flexGrow: 1, mx: 2, maxWidth: 300, display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ flexGrow: 1, mx: 2, maxWidth: 300, display: { xs: 'none', sm: 'block' } ,ml:{xs:0,sm:45}}}>
             <Autocomplete
               options={carModels}
               getOptionLabel={(option) => option ? `${option.brand} ${option.model}` : ''}
