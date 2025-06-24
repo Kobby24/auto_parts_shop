@@ -33,7 +33,7 @@ const SectionCard = ({ section }) => (
                 {section.title}
             </Typography>
             <Masonry columns={2} spacing={2}>
-                {section.items.map((item) => (
+                {section.items ? section.items.map((item) => (
                     <Button
                         key={item.label}
                         href={item.link}
@@ -66,7 +66,39 @@ const SectionCard = ({ section }) => (
                             {item.label}
                         </Typography>
                     </Button>
-                ))}
+                ))  : ( section.map((item) => (
+                    <Button
+                        key={item.label}
+                        href={item.link}
+                        sx={{
+                            textTransform: "none",
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "flex-start",
+                            p: 0,
+                        }}
+                    >
+                        <CardMedia
+                            component="img"
+                            image={item.image}
+                            alt={item.label}
+                            sx={{
+                                width: "100%",
+                                height: { xs: 90, sm: 130 }, // Smaller image on mobile
+                                objectFit: "cover",
+                                borderRadius: 3,
+                                mb: 1,
+                            }}
+                        />
+                        <Typography
+                            variant="body2"
+                            color="text.primary"
+                            fontWeight="bold"
+                        >
+                            {item.label}
+                        </Typography>
+                    </Button>)))}
             </Masonry>
         </CardContent>
     </Card>
