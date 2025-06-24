@@ -191,9 +191,9 @@ const Sections = ({ cartItems, setCartItems }) => {
   useEffect(() => {
     const filtered = sections.filter(section => {
       const matchesBrand = section.label.toLowerCase() === brandName.toLowerCase();
-      const matchesModel = modelName ? section.productName.toLowerCase().includes(modelName.toLowerCase()) : true;
-      const notProdId = section.id !== Number(prod_id);
-      return matchesBrand && matchesModel && notProdId;
+      // const matchesModel = modelName ? section.productName.toLowerCase().includes(modelName.toLowerCase()) : true;
+      // const notProdId = section.id !== Number(prod_id);
+      return matchesBrand ;
     });
     const mainItem = sections.find(section => section.id === Number(prod_id));
     setFilteredSections({ mainItem: mainItem, filteredSections: filtered });
@@ -394,9 +394,9 @@ const Sections = ({ cartItems, setCartItems }) => {
               gap: 3,
             }}
           >
-            {filteredSections.filteredSections.map((item) => (
-              <SectionCard key={item.id} section={item} />
-            ))}
+          
+              <SectionCard  section={filteredSections.filteredSections} />
+        
           </Box>
         </Box>
       )}
