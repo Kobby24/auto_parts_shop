@@ -16,6 +16,11 @@ import {
   Chip,
   Avatar,
   Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -35,6 +40,10 @@ function PaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState("mtn");
   const [sideSelections, setSideSelections] = useState({});
   const [orderMessage, setOrderMessage] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [customerNumber, setCustomerNumber] = useState("");
+  const [successOpen, setSuccessOpen] = useState(false);
+
 
   useEffect(() => {
     const stored = localStorage.getItem("cartItems");
@@ -73,19 +82,34 @@ function PaymentPage() {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
 
   const handlePayment = () => {
-    // Implement payment logic here
-    alert(
-      `Payment method: ${paymentMethod}\nTotal: GHS ${total}\nOrder placed!`
-    );
-    // Optionally clear cart
+    // Simple validation
+    if (!customerName.trim() || !customerNumber.trim()) {
+      alert("Please enter your name and number.");
+      return;
+    }
+    setSuccessOpen(true);
+    // Optionally clear cart after success
+    // localStorage.removeItem("cartItems");
+    // setCartItems([]);
+  };
+  const handleDialogClose = () => {
+    setSuccessOpen(false);
+    // Optionally clear cart after closing dialog
     // localStorage.removeItem("cartItems");
     // setCartItems([]);
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, p: 2 }}>
+     <Box
+      sx={{
+        background: "linear-gradient(180deg,rgb(20, 113, 206) 0%, #fff 100%)",
+        minHeight: "100vh",
+        py: 4,
+      }}
+    >
+    <Box sx={{ maxWidth: 600, mx: "auto", mt: 4, p: 2, }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
-        Make a Payment
+        complete Order
       </Typography>
       {orderMessage && (
         <Alert severity="info" sx={{ mb: 2 }}>
@@ -210,7 +234,7 @@ function PaymentPage() {
           GHS {total}
         </Typography>
       </Box>
-      <FormControl component="fieldset" sx={{ mb: 2 }}>
+      {/* <FormControl component="fieldset" sx={{ mb: 2 }}>
         <FormLabel component="legend">Payment Method</FormLabel>
         <RadioGroup
           row
@@ -226,7 +250,24 @@ function PaymentPage() {
             />
           ))}
         </RadioGroup>
-      </FormControl>
+      </FormControl> */}
+      <TextField
+        label="Your Name"
+        value={customerName}
+        onChange={(e) => setCustomerName(e.target.value)}
+        fullWidth
+        required
+        sx={{ mb: 2 }}
+      />
+      <TextField
+        label="Mobile Number"
+        value={customerNumber}
+        onChange={(e) => setCustomerNumber(e.target.value.replace(/\D/, ""))}
+        required
+        fullWidth
+        sx={{ mb: 2 }}
+        inputProps={{ inputMode: "numeric", pattern: "[0-9]*", maxLength: 15 }}
+      />
       <Button
         variant="contained"
         color="primary"
@@ -237,7 +278,20 @@ function PaymentPage() {
       >
         Place Order
       </Button>
-    </Box>
+      <Dialog open={successOpen} onClose={handleDialogClose}>
+        <DialogTitle>Order Successful!</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Thank you, {customerName}! Your order has been placed successfully.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary" autoFocus>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box></Box>
   );
 }
 
