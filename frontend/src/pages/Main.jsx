@@ -332,7 +332,7 @@ function Main({ cartItems, setCartItems }) {
           <Grid
             container
             spacing={2}
-            ml={{ xs: 0, sm: 3 }}
+            ml={{ xs: 0, sm: 1 }}
             justifyContent="center"
           >
             {section.map((item) => (
@@ -354,8 +354,8 @@ function Main({ cartItems, setCartItems }) {
                   sx={{
                     minHeight: 200,
                     borderRadius: 3,
-                    width: { xs: "100%", sm: 350 },
-                    maxWidth: 400,
+                    width: { xs: "100%", sm: 300 }, // changed from 350 to 300
+                    maxWidth: 350,                  // changed from 400 to 350
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",
@@ -414,10 +414,10 @@ function Main({ cartItems, setCartItems }) {
                     <Button
                       sx={{
                         background: "rgba(8, 85, 162, 0.94)",
-                        mr: { xs: 0, sm: 20 },
+                        mr: { xs: 0, sm: 2 },
                         ml: { xs: 0, sm: 3 },
                         mb: 2,
-                        width: { xs: "90%", sm: "20%" },
+                        width: { xs: "90%", sm: "100%" },
                       }}
                       onClick={() => handleAddToCart(item)}
                     >
@@ -429,7 +429,8 @@ function Main({ cartItems, setCartItems }) {
                       onClick={() => handleOrderClick(item)}
                       sx={{
                         background: "rgba(1, 34, 67, 0.94)",
-                        ml: { xs: 0, sm: 3 },
+                        ml: { xs: 0, sm: 0 },
+                        mr:{xs:0,sm:3},
                         mb: 2,
                         width: { xs: "90%", sm: "80%" },
                       }}
